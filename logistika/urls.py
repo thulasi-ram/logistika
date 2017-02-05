@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', Landing.as_view(), name='landing'),
     url(r'^users/', include('users.urls', namespace='users')),
+    url(r'^quotes/', include('quotes.urls', namespace='quotes')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -35,41 +35,41 @@
 <!--SLIDER END-->
 
 <div class="row">
-    <div class="col s12 m4">
-        <div class="card hoverable">
+    <div class="col s12 offset-m1 m3">
+        <div class="card hoverable small">
             <div class="card-image">
-                <img src="{% static 'images/browse_quotes.png' %}" style="width:250px;left:75px;top:20px;">
+                <img src="{% static 'images/browse_quotes.png' %}" >
+                <!--style="width:250px;left:75px;top:20px;"-->
                 <span class="card-title"></span>
             </div>
             <div class="card-content">
                 <p></p>
             </div>
             <div class="card-action">
-                <a href="#">BROWSE QUOTES</a>
+                <a href="{% url 'quotes:consolidated' %}">BROWSE QUOTES</a>
             </div>
         </div>
     </div>
-    <div class="col s12 m4">
-        <div class="card hoverable">
+    <div class="col s12 m3">
+        <div class="card hoverable small">
             <div class="card-image">
-                <img src="{% static 'images/create_quotes.png' %}" style="width:250px;left:75px;top:20px;">
+                <img src="{% static 'images/create_quotes.png' %}">
                 <span class="card-title"></span>
-                <a class="btn-floating right btn-large halfway-fab waves-effect waves-light red"><i
-                        class="material-icons">add</i></a>
+                <!--<a class="btn-floating right btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>-->
 
             </div>
             <div class="card-content">
                 <p></p>
             </div>
             <div class="card-action">
-                <a href="#">CREATE QUOTE</a>
+                <a href="{% url 'quotes:consolidated' %}">CREATE QUOTE</a>
             </div>
         </div>
     </div>
-    <div class="col s12 m4">
-        <div class="card hoverable">
+    <div class="col s12 m3">
+        <div class="card hoverable small">
             <div class="card-image">
-                <img src="{% static 'images/compare_quotes.png' %}" style="width:250px;left:75px;top:20px;">
+                <img src="{% static 'images/compare_quotes.png' %}">
                 <span class="card-title"></span>
 
             </div>
@@ -77,7 +77,7 @@
                 <p></p>
             </div>
             <div class="card-action">
-                <a href="#">COMPARE QUOTES</a>
+                <a href="{% url 'quotes:consolidated' %}">COMPARE QUOTES</a>
             </div>
         </div>
     </div>

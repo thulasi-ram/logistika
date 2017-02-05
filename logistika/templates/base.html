@@ -16,6 +16,7 @@
 
 <ul id="dropdown1" class="dropdown-content">
     {% if request.user.is_authenticated %}
+    <li><a href="/quotes">My Quotes</a></li>
     <li><a href="/users/logout/">Logout</a></li>
     {% else %}
     <li><a href="/users/login/">Login</a></li>
@@ -29,13 +30,17 @@
         </a>
         <ul class="right hide-on-med-and-down">
             <li>
+                <!--<i class="small material-icons">search</i>-->
+
                 <form id="searchThis" action="/search" style="display: inline;" method="get"><input
-                        onfocus="if(this.value==this.defaultValue)this.value='';" value="Search this blog" type="text"
+                        onfocus="if(this.value==this.defaultValue)this.value='';" value="search site" type="text"
                         id="searchBox" onblur="if(this.value=='')this.value=this.defaultValue;" vinput="" name="q"/>
-                    <input id="searchButton" value="Go" type="submit"/></form>
+
+                    <!--<input id="searchButton" value="Go" type="submit"/>-->
+                </form>
             </li>
             <li><a class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!"
-                   data-activates="dropdown1"><i class="small material-icons right">arrow_drop_down</i><i
+                   data-activates="dropdown1"><i class="material-icons right large">arrow_drop_down</i><i
                     class="tiny material-icons">account_circle</i></a></li>
         </ul>
 
@@ -98,6 +103,24 @@
         <p>Rajashekar : 00000000000</p>
         <p>Thulasi : 00000000000</p>
         <h4>Email us:</h4>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">subject</i>
+                        <input id="contactus_subject" type="text" class="validate">
+                        <label for="contactus_subject">Subject</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="contactus_message" class="materialize-textarea"></textarea>
+                        <label for="contactus_message">Message</label>
+                    </div>
+                    <button type="submit" id="query_submit" class="waves-effect waves-light btn right">Send</button>
+
+                </div>
+            </form>
+        </div>
     </div>
     <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>

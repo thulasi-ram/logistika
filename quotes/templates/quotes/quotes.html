@@ -1,0 +1,67 @@
+{% extends "logistika/landing2.html" %}
+{% block title %}Quotes{% endblock %}
+{% load static %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/quotes.js' %}"></script>
+{% endblock %}
+{% block tabs %}
+<ul class="tabs tabs-fixed-width">
+    <li class="tab col s3"><a href="#list_quotes">Quotes</a></li>
+    <li class="tab col s3 {% if not request.user.is_authenticated %} disabled {%endif%} "><a href="#create_quotes">Create
+        a Quote</a></li>
+    <li class="tab col s3"><a href="#compare_quotes">Compare Quotes</a></li>
+</ul>
+<div id="list_quotes" class="col s12">
+    <ul class="collection">
+        {% for item in quotes%}
+        <li class="collection-item avatar">
+            <img src="images/yuna.jpg" alt="" class="circle">
+            <span class="title">{{item.title}}</span>
+            <p>{{item.title }}<br>
+                Second Line
+            </p>
+            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+        </li>
+        {% empty %}
+        <h4 class="center">No quotes</h4>
+        {%endfor%}
+    </ul>
+</div>
+<div id="create_quotes" class="col s12">
+    <form id="myform" action="{% url 'quotes:create' %}" method="post">
+        {%csrf_token%}
+        <div class="input-field col s12">
+            <input id="quote_title" name="title" type="text" class="validate" required>
+            <label for="quote_title">Title</label>
+        </div>
+        <button type="submit" id="submit_button" class="waves-effect waves-light btn">CREATE QUOTE
+        </button>
+    </form>
+</div>
+<div id="compare_quotes" class="col s12">
+
+    <div class="row">
+        {%for i in "xxx" %}
+
+        <div class="col s12 m4">
+            <div class="card-panel teal">
+                <nav>
+                    <div class="nav-wrapper">
+                        <form>
+                            <div class="input-field">
+                                <input id="search" type="search" required>
+                                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                <i class="material-icons">close</i>
+                            </div>
+                        </form>
+                    </div>
+                </nav>
+                <span class="white-text">I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+          </span>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+{% endblock %}
