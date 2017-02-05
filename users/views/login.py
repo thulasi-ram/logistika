@@ -29,6 +29,11 @@ class Login(TemplateView, APIView):
     template_name = 'users/login.html'
     serializer = LoginValidator
 
+    def dispatch(self, request, **kwargs):
+        if request.user and request.user.is_active and request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('landing'))
+        return super(Login, self).dispatch(request, **kwargs)
+
     def get(self, request, *args, **kwargs):
         return TemplateResponse(request, self.template_name)
 
@@ -42,7 +47,7 @@ class Login(TemplateView, APIView):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect(reverse('logistika:landing'))
+                    return Response(data={'redirect': reverse('landing')}, status=status.HTTP_200_OK)
                 else:
                     return Response('User not active', status=status.HTTP_403_FORBIDDEN)
             else:

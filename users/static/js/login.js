@@ -31,6 +31,7 @@ $(document).ready(function() {
         });
 
         request.done(function(response) {
+            window.location.replace(response.redirect);
         });
         request.fail(function(jqXHR, textStatus) {
           Materialize.toast(jqXHR.responseText || "Form submit failed. Please check network." ,5000,'red accent-4');

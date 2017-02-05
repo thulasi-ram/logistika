@@ -48,9 +48,15 @@ class SignUpValidator(serializers.Serializer):
                                        'blank': 'Email cannot be blank',
                                    })
 
+
 class SignUp(TemplateView, APIView):
     template_name = 'users/signup.html'
     serializer = SignUpValidator
+
+    def dispatch(self, request, **kwargs):
+        if request.user and request.user.is_active and request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('landing'))
+        return super(SignUp, self).dispatch(request, **kwargs)
 
     def get(self, request, *args, **kwargs):
         return TemplateResponse(request, self.template_name)
@@ -68,7 +74,7 @@ class SignUp(TemplateView, APIView):
             if user:
                 user.backend = settings.AUTHENTICATION_BACKENDS
                 login(request, user)
-                return HttpResponseRedirect(reverse('logistika:landing'))
+                return Response(data={'redirect': reverse('landing')}, status=status.HTTP_200_OK)
         except IntegrityError:
             return Response(data='User with the email already exists', status=status.HTTP_409_CONFLICT)
         except Exception as e:

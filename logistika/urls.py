@@ -18,7 +18,10 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from views.landing import Landing
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('users.urls', namespace='users')),
+    url(r'^$', Landing.as_view(), name='landing'),
+    url(r'^users/', include('users.urls', namespace='users')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
