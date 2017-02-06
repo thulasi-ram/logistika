@@ -57,7 +57,7 @@ $(document).ready(function() {
                 url: actionurl,
                 type: 'post',
                 dataType: 'json',
-                data: $("#login").serialize(),
+                data: $("#signup").serialize(),
         });
 
         request.done(function(response) {

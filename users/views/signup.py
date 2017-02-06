@@ -63,7 +63,7 @@ class SignUp(TemplateView, APIView):
 
     def post(self, request):
         try:
-            data = request.data
+            data = request.POST
             serializer = self.serializer(data=data)
             if not serializer.is_valid():
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -76,6 +76,6 @@ class SignUp(TemplateView, APIView):
                 login(request, user)
                 return Response(data={'redirect': reverse('landing')}, status=status.HTTP_200_OK)
         except IntegrityError:
-            return Response(data='User with the email already exists', status=status.HTTP_409_CONFLICT)
+                return Response(data='User with the email already exists', status=status.HTTP_409_CONFLICT)
         except Exception as e:
             return Response(data='Something went wrong', status=status.HTTP_500_INTERNAL_SERVER_ERROR, headers={'dev_msg': e.message})

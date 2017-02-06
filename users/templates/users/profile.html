@@ -2,14 +2,14 @@
 {% block title %}Quotes{% endblock %}
 {% load static %}
 {% block scripts %}
-<script type="text/javascript" src="{% static 'js/quotes.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
 {% endblock %}
 {% block tabs %}
 <div class="col s12">
-<ul class="tabs">
-    <li class="tab col s3"><a href="#account">Account Settings</a></li>
-    <li class="tab col s3"><a href="#auth">Auth Settings</a></li>
-</ul>
+    <ul class="tabs">
+        <li class="tab col s3"><a href="#account">Account Settings</a></li>
+        <li class="tab col s3"><a href="#auth">Auth Settings</a></li>
+    </ul>
 </div>
 <div id="account" class="col s12">
     <ul class="collection">
@@ -29,18 +29,23 @@
 </div>
 <div id="auth" class="col s12">
     {% if request.user.is_authenticated %}
-    <form id="myform" action="{% url 'quotes:create' %}" method="post">
+    <form id="password_change" action="{% url 'users:password_change' %}" method="post">
         {%csrf_token%}
         <div class="input-field col s12">
-            <input id="quote_title" name="title" type="text" class="validate" required>
-            <label for="quote_title">Title</label>
+            <input type="password" name="old_password" id="old_password" required/>
+            <label for="old_password">Old Password</label>
         </div>
-        <button type="submit" id="create_quote_submit" class="waves-effect waves-light btn">CREATE QUOTE
+        <div class="input-field col s12">
+            <input type="password" name="new_password1" id="new_password1" required/>
+            <label for="new_password1">New Password</label>
+        </div>
+        <div class="input-field col s12">
+            <input type="password" name="new_password2" id="new_password2" required/>
+            <label for="new_password2">New Password again</label>
+        </div>
+        <button type="submit" id="password_reset_submit" class="waves-effect waves-light btn-large green accent-4">RESET PASSWORD
         </button>
     </form>
     {% endif %}
-</div>
-<div id="compare_quotes" class="col s12">
-
 </div>
 {% endblock %}
