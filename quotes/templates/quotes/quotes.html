@@ -7,9 +7,14 @@
 {% block tabs %}
 <ul class="tabs tabs-fixed-width">
     <li class="tab col s3"><a href="#list_quotes">Quotes</a></li>
-    <li class="tab col s3 {% if not request.user.is_authenticated %} disabled {%endif%} "><a href="#create_quotes">Create
-        a Quote</a></li>
+    {% if request.user.is_authenticated %}
+    <li class="tab col s3"><a href="#create_quotes">Create a Quote</a></li>
+    {% else %}
+    <li class="tab col s3"><a href="#create_quotes" onclick="$('#login_signup_popup').modal('open')">Create a Quote</a></li>
+    {% endif %}
     <li class="tab col s3"><a href="#compare_quotes">Compare Quotes</a></li>
+
+
 </ul>
 <div id="list_quotes" class="col s12">
     <ul class="collection">
@@ -28,15 +33,17 @@
     </ul>
 </div>
 <div id="create_quotes" class="col s12">
+    {% if request.user.is_authenticated %}
     <form id="myform" action="{% url 'quotes:create' %}" method="post">
         {%csrf_token%}
         <div class="input-field col s12">
             <input id="quote_title" name="title" type="text" class="validate" required>
             <label for="quote_title">Title</label>
         </div>
-        <button type="submit" id="submit_button" class="waves-effect waves-light btn">CREATE QUOTE
+        <button type="submit" id="create_quote_submit" class="waves-effect waves-light btn">CREATE QUOTE
         </button>
     </form>
+    {% endif %}
 </div>
 <div id="compare_quotes" class="col s12">
 

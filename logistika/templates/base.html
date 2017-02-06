@@ -29,19 +29,22 @@
             <i class="material-icons large" style="font-size:50px">directions_boat</i>Logistika
         </a>
         <ul class="right hide-on-med-and-down">
-            <li>
-                <!--<i class="small material-icons">search</i>-->
+            <!--<li>-->
+                <!--&lt;!&ndash;<i class="small material-icons">search</i>&ndash;&gt;-->
 
-                <form id="searchThis" action="/search" style="display: inline;" method="get"><input
-                        onfocus="if(this.value==this.defaultValue)this.value='';" value="search site" type="text"
-                        id="searchBox" onblur="if(this.value=='')this.value=this.defaultValue;" vinput="" name="q"/>
+                <!--<form id="searchThis" action="/search" style="display: inline;" method="get"><input-->
+                        <!--onfocus="if(this.value==this.defaultValue)this.value='';" value="search site" type="text"-->
+                        <!--id="searchBox" onblur="if(this.value=='')this.value=this.defaultValue;" vinput="" name="q"/>-->
 
-                    <!--<input id="searchButton" value="Go" type="submit"/>-->
-                </form>
-            </li>
+                    <!--&lt;!&ndash;<input id="searchButton" value="Go" type="submit"/>&ndash;&gt;-->
+                <!--</form>-->
+            <!--</li>-->
+            {% if request.user.is_authenticated %}
             <li><a class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!"
-                   data-activates="dropdown1"><i class="material-icons right large">arrow_drop_down</i><i
-                    class="tiny material-icons">account_circle</i></a></li>
+                   data-activates="dropdown1">{{request.user}}    <i class="material-icons right large">arrow_drop_down</i></a></li>
+            {% else %}
+                <li><a href="#login_signup_popup">Login/Signup</a></li>
+            {% endif %}
         </ul>
 
 
@@ -152,5 +155,13 @@
         <!--<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>-->
     </div>
 </div>
+ <div id="login_signup_popup" class="modal">
+    <div class="modal-content">
+        {% include "users/login_signup_popup.html" %}
+    </div>
+    <!--<div class="modal-footer">-->
+      <!--<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>-->
+    <!--</div>-->
+  </div>
 </body>
 </html>
