@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from users.views.profile import Profile
 from views.landing import Landing
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', Landing.as_view(), name='landing'),
-    url(r'^users/', include('users.urls', namespace='users')),
-    url(r'^quotes/', include('quotes.urls', namespace='quotes')),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+                  url(r'^admin/', admin.site.urls),
+                  url(r'^$', Landing.as_view(), name='landing'),
+                  url(r'^users/', include('users.urls', namespace='users')),
+                  url(r'^quotes/', include('quotes.urls', namespace='quotes')),
+                  url(r'profile', Profile.as_view(), name='profile'),
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

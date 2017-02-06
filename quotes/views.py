@@ -27,11 +27,7 @@ class QuoteSerializer(serializers.Serializer):
     })
 
 class CreateQuote(APIView):
-    # template_name = 'quotes/quotes.html'
     serializer = QuoteSerializer
-
-    # def get(self, request, *args, **kwargs):
-    #     return HttpResponseRedirect(reverse('quotes:consolidated'))
 
     def post(self, request):
         try:

@@ -1,0 +1,46 @@
+{% extends "logistika/landing2.html" %}
+{% block title %}Quotes{% endblock %}
+{% load static %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/quotes.js' %}"></script>
+{% endblock %}
+{% block tabs %}
+<div class="col s12">
+<ul class="tabs">
+    <li class="tab col s3"><a href="#account">Account Settings</a></li>
+    <li class="tab col s3"><a href="#auth">Auth Settings</a></li>
+</ul>
+</div>
+<div id="account" class="col s12">
+    <ul class="collection">
+        {% for item in quotes%}
+        <li class="collection-item avatar">
+            <img src="images/yuna.jpg" alt="" class="circle">
+            <span class="title">{{item.title}}</span>
+            <p>{{item.title }}<br>
+                Second Line
+            </p>
+            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+        </li>
+        {% empty %}
+        <h4 class="center">No quotes</h4>
+        {%endfor%}
+    </ul>
+</div>
+<div id="auth" class="col s12">
+    {% if request.user.is_authenticated %}
+    <form id="myform" action="{% url 'quotes:create' %}" method="post">
+        {%csrf_token%}
+        <div class="input-field col s12">
+            <input id="quote_title" name="title" type="text" class="validate" required>
+            <label for="quote_title">Title</label>
+        </div>
+        <button type="submit" id="create_quote_submit" class="waves-effect waves-light btn">CREATE QUOTE
+        </button>
+    </form>
+    {% endif %}
+</div>
+<div id="compare_quotes" class="col s12">
+
+</div>
+{% endblock %}

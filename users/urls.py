@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from users.views.forgot_password import ForgotPassword
 from users.views.login import Login
 from users.views.logout import Logout
+from users.views.profile import Profile
 from users.views.signup import SignUp
 
 urlpatterns = [
