@@ -26,8 +26,18 @@ class QuoteSerializer(serializers.Serializer):
         'blank': 'Quote title cannot be blank'
     })
 
+class ListQuotes(APIView):
+
+    def get(self, request):
+        try:
+            quotes = Quotes.objects.all().values()
+            return Response(data=quotes, status=status.HTTP_200_OK)
+        except:
+            return Response("Quote listing failed.", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class CreateQuote(APIView):
     serializer = QuoteSerializer
+    authentication_classes = []
 
     def post(self, request):
         try:

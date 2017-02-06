@@ -55,7 +55,7 @@
 </div>
 <div id="create_quotes" class="col s12">
     {% if request.user.is_authenticated %}
-    <form id="myform" action="{% url 'quotes:create' %}" method="post">
+    <form id="create_quotes_form" action="{% url 'quotes:create' %}" method="post">
         {%csrf_token%}
         <div class="input-field col s12">
             <input id="quote_title" name="title" type="text" class="validate" required>
