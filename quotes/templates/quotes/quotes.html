@@ -6,53 +6,37 @@
 {% endblock %}
 {% block tabs %}
 <div class="col s12">
-<ul class="tabs">
-    <li class="tab col s3"><a href="#list_quotes">Quotes</a></li>
-    {% if request.user.is_authenticated %}
-    <li class="tab col s3"><a href="#create_quotes">Create a Quote</a></li>
-    {% else %}
-    <li class="tab col s3"><a href="#create_quotes" onclick="$('#login_signup_popup').modal('open')">Create a Quote</a></li>
-    {% endif %}
-    <li class="tab col s3"><a href="#compare_quotes">Compare Quotes</a></li>
-</ul>
+    <ul class="tabs">
+        <li class="tab col s3"><a href="#list_quotes">Quotes</a></li>
+        {% if request.user.is_authenticated %}
+        <li class="tab col s3"><a href="#create_quotes">Create a Quote</a></li>
+        {% else %}
+        <li class="tab col s3"><a href="#create_quotes" onclick="$('#login_signup_popup').modal('open')">Create a
+            Quote</a></li>
+        {% endif %}
+        <li class="tab col s3"><a href="#compare_quotes">Compare Quotes</a></li>
+    </ul>
 </div>
 <div id="list_quotes" class="col s12">
     <table>
         <thead>
-          <tr>
-              <th data-field="id">Name</th>
-              <th data-field="title">Item Name</th>
-              <th data-field="category">Item Price</th>
-          </tr>
+        <tr>
+            <th data-field="id">Name</th>
+            <th data-field="title">Item Name</th>
+            <th data-field="category">Item Price</th>
+        </tr>
         </thead>
 
         <tbody>
-        {% for item in quotes%}
-          <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{item.title}}</td>
-            <td>$0.87</td>
-          </tr>
-        {% empty %}
-          <tr>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-          </tr>
-        {%endfor%}
         </tbody>
-      </table>
+    </table>
 
-     <ul class="pagination right">
-    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">1</a></li>
-    <li class="waves-effect"><a href="#!">2</a></li>
-    <li class="waves-effect"><a href="#!">3</a></li>
-    <li class="waves-effect"><a href="#!">4</a></li>
-    <li class="waves-effect"><a href="#!">5</a></li>
-    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-  </ul>
+    <ul class="pagination right" id="list_quotes_pagination">
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
 </div>
+
 <div id="create_quotes" class="col s12">
     {% if request.user.is_authenticated %}
     <form id="create_quotes_form" action="{% url 'quotes:create' %}" method="post">
@@ -66,6 +50,7 @@
     </form>
     {% endif %}
 </div>
+
 <div id="compare_quotes" class="col s12">
 
     <div class="row">
