@@ -1,0 +1,7 @@
+.side-nav {
+    z-index: 995;
+    padding-top: 60px;
+}
+#sidenav-overlay {
+    display: none;
+}

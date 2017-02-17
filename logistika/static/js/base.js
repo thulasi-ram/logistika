@@ -1,7 +1,15 @@
 $(document).ready(function() {
     $(".dropdown-button").dropdown();
     $('.modal').modal();
-
+    var $nav_bar_width = 250;
+    $('#hamburger-menu-button').sideNav({
+      menuWidth: $nav_bar_width,
+      edge: 'left', // Choose the horizontal origin
+    closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+  );
+//    $(".wrapper").css('padding-left', $nav_bar_width);
     $("#signup_password").on("keyup",function(){
     if($(this).val())
         $("#remove_red_eye").show();

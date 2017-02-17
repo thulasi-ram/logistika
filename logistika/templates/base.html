@@ -5,59 +5,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Logistika | {% block title %}{% endblock %}</title>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% load static %}
     {% block styles %}
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'lib/materialize.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     {% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-
-<ul id="dropdown1" class="dropdown-content">
-    {% if request.user.is_authenticated %}
-    <li><a href="/quotes">My Quotes</a></li>
-    <li><a href="/users/logout/">Logout</a></li>
-    {% else %}
-    <li><a href="/users/login/">Login</a></li>
-    <li><a href="/users/signup/">Signup</a></li>
-    {%endif%}
+<div class="navbar-fixed">
+    <nav class="teal lighten-2">
+        <div class="nav-wrapper">
+            <a href="#" id="hamburger-menu-button" data-activates="hamburger-menu" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+            <a href="/" class="brand-logo center">Logistika</a>
+        </div>
+    </nav>
+</div>
+<ul id="hamburger-menu" class="side-nav">
+    <li>
+        <div class="userView">
+            <div class="background">
+                <img src="images/office.jpg">
+            </div>
+            <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+            <a href="#!name"><span class="white-text name">John Doe</span></a>
+            <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+        </div>
+    </li>
+    <li><a href="#!"><i class="material-icons">cloud</i>Account Settings</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
 </ul>
-<nav class="teal lighten-2">
-    <div class="nav-wrapper">
-        <a href="/" class="brand-logo">
-            <i class="material-icons large" style="font-size:50px">directions_boat</i>Logistika
-        </a>
-        <ul class="right hide-on-med-and-down">
-            <!--<li>-->
-                <!--&lt;!&ndash;<i class="small material-icons">search</i>&ndash;&gt;-->
-
-                <!--<form id="searchThis" action="/search" style="display: inline;" method="get"><input-->
-                        <!--onfocus="if(this.value==this.defaultValue)this.value='';" value="search site" type="text"-->
-                        <!--id="searchBox" onblur="if(this.value=='')this.value=this.defaultValue;" vinput="" name="q"/>-->
-
-                    <!--&lt;!&ndash;<input id="searchButton" value="Go" type="submit"/>&ndash;&gt;-->
-                <!--</form>-->
-            <!--</li>-->
-            {% if request.user.is_authenticated %}
-            <li><a class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!"
-                   data-activates="dropdown1">{{request.user}}    <i class="material-icons right large">arrow_drop_down</i></a></li>
-            {% else %}
-                <li><a href="#login_signup_popup">Login/Signup</a></li>
-            {% endif %}
-        </ul>
 
 
+
+ <div id="login_signup_popup" class="modal">
+    <div class="modal-content">
+        {% include "users/login_signup_popup.html" %}
     </div>
-</nav>
-{% block content %}{% endblock %}
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
 
+{% block content %}{% endblock %}
 <script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'lib/moment.js' %}"></script>
 <script type="text/javascript" src="{% static 'lib/materialize.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
-<!--<script type="text/javascript" src="{% static 'lib/vue.js' %}"></script>-->
-<!--<script type="text/javascript" src="{% static 'lib/vue-multiselect.min.js' %}"></script>-->
 {% block scripts %}{% endblock %}
 
 <footer class="page-footer">
@@ -98,70 +95,5 @@
     </div>
 </footer>
 
-
-<!--MODALS-->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <h4>Contacts</h4>
-        <p>Rajashekar : 00000000000</p>
-        <p>Thulasi : 00000000000</p>
-        <h4>Email us:</h4>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">subject</i>
-                        <input id="contactus_subject" type="text" class="validate">
-                        <label for="contactus_subject">Subject</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">mode_edit</i>
-                        <textarea id="contactus_message" class="materialize-textarea"></textarea>
-                        <label for="contactus_message">Message</label>
-                    </div>
-                    <button type="submit" id="query_submit" class="waves-effect waves-light btn right">Send</button>
-
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
-    </div>
-</div>
-<div id="modal2" class="modal">
-    <div class="modal-content">
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">email</i>
-                        <input id="callback_email" type="email" class="validate">
-                        <label for="callback_email">Email</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">phone</i>
-                        <input id="callback_phone" type="tel" class="validate">
-                        <label for="callback_phone">Telephone</label>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="submit" id="submit_button"
-                class="center-align modal-action modal-close waves-effect waves-green btn-flat"><b>Request Callback</b>
-        </button>
-        <!--<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>-->
-    </div>
-</div>
- <div id="login_signup_popup" class="modal">
-    <div class="modal-content">
-        {% include "users/login_signup_popup.html" %}
-    </div>
-    <!--<div class="modal-footer">-->
-      <!--<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>-->
-    <!--</div>-->
-  </div>
 </body>
 </html>
