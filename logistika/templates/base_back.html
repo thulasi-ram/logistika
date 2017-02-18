@@ -41,9 +41,10 @@
             </li>
             {% if request.user.is_authenticated %}
             <li><a class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!"
-                   data-activates="dropdown1">{{request.user}}    <i class="material-icons right large">arrow_drop_down</i></a></li>
+                   data-activates="dropdown1">{{request.user}} <i class="material-icons right large">arrow_drop_down</i></a>
+            </li>
             {% else %}
-                <li><a href="#login_signup_popup">Login/Signup</a></li>
+            <li><a href="#login_signup_popup">Login/Signup</a></li>
             {% endif %}
         </ul>
 
@@ -153,13 +154,13 @@
         <!--<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>-->
     </div>
 </div>
- <div id="login_signup_popup" class="modal">
+<div id="login_signup_popup" class="modal">
     <div class="modal-content">
         {% include "users/login_signup_popup.html" %}
     </div>
     <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
-  </div>
+</div>
 </body>
 </html>

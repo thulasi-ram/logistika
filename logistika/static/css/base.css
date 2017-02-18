@@ -1,7 +1,24 @@
 .side-nav {
     z-index: 995;
-    padding-top: 60px;
+    margin-top: 64px;
+    padding-top: 5px;
+
 }
 #sidenav-overlay {
     display: none;
+}
+.tabs .tab a.active {
+  color: white;
+}
+
+.tabs .tab a:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.tabs .tab a {
+  color: white;
+}
+.tabs .indicator {
+    background-color: white;
 }

@@ -1,4 +1,4 @@
 $(document).ready(function() {
-    $('.slider').slider();
     $('.parallax').parallax();
+    $('.slider').slider();
 });

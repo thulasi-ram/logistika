@@ -7,7 +7,7 @@ default_tab = 'create_quotes'
 else if(hash == 'compare'){
 default_tab = 'compare_quotes'
 }
-$('ul.tabs').tabs('select_tab', default_tab);
+//$('ul.tabs').tabs('select_tab', default_tab);
 get_quotes_list(1);
 
     $("#list_quotes_pagination").on("click", "li", function(event){
