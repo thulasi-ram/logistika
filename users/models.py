@@ -11,9 +11,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from users.views.user_manager import CustomUserManager
 from logistika.views.model_crud_permissions import CRUDPermissions
+from djutil.models import TimeStampedModel
 
-
-class User(AbstractBaseUser, PermissionsMixin, CRUDPermissions):
+class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions):
 
     first_name = models.CharField(_('First Name'), max_length=254)
     last_name = models.CharField(_('Last Name'), max_length=254, blank=True, default="")

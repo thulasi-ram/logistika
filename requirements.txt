@@ -2,3 +2,4 @@ django==1.10.5
 django-material
 #django-materialize-css
 djangorestframework==3.5.3
+djutil==0.2

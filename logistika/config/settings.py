@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'material.theme.indigo',
     'material',
     'users',
+    'tenders',
+    'user_profile',
     'quotes',
     'rest_framework',
     'django.contrib.admin',
