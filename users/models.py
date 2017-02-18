@@ -7,12 +7,11 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
-from django.db.models import FileField
 from django.utils.translation import ugettext_lazy as _
-
-from users.views.user_manager import CustomUserManager
-from logistika.views.model_crud_permissions import CRUDPermissions
 from djutil.models import TimeStampedModel
+
+from logistika.views.model_crud_permissions import CRUDPermissions
+from users.views.user_manager import CustomUserManager
 
 class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions):
 
@@ -63,7 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions
 
 class Profile(TimeStampedModel, CRUDPermissions):
     user = models.OneToOneField(User, related_name='user')
-    photo = FileField(verbose_name=_("Profile Picture"), upload_to='uploads/', null=True, blank=True)
+    photo = models.ImageField(upload_to='uploads/', null=True, blank=True)
     website = models.URLField(default='', blank=True)
     bio = models.TextField(default='', blank=True)
     phone = models.CharField(max_length=20, blank=True, default='')

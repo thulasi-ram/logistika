@@ -31,8 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'material.theme.indigo',
-    'material',
+    'materializecssform',
     'users',
     'tenders',
     'quotes',
