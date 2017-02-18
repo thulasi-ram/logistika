@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
+from django.db.models import FileField
 from django.utils.translation import ugettext_lazy as _
 
 from users.views.user_manager import CustomUserManager
@@ -59,3 +60,13 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions
     @property
     def is_admin(self):
         return self.is_staff
+
+class Profile(TimeStampedModel, CRUDPermissions):
+    user = models.OneToOneField(User, related_name='user')
+    photo = FileField(verbose_name=_("Profile Picture"), upload_to='uploads/', null=True, blank=True)
+    website = models.URLField(default='', blank=True)
+    bio = models.TextField(default='', blank=True)
+    phone = models.CharField(max_length=20, blank=True, default='')
+    city = models.CharField(max_length=100, default='', blank=True)
+    country = models.CharField(max_length=100, default='', blank=True)
+    organization = models.CharField(max_length=100, default='', blank=True)

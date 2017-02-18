@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'material',
     'users',
     'tenders',
-    'user_profile',
     'quotes',
     'rest_framework',
     'django.contrib.admin',
