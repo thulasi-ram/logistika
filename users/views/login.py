@@ -35,7 +35,8 @@ class Login(TemplateView, APIView):
         return super(Login, self).dispatch(request, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        return TemplateResponse(request, self.template_name)
+        data = request.GET
+        return TemplateResponse(request, self.template_name, context={'next': data['next'] if data.get('next') else reverse('landing')})
 
     def post(self, request):
         try:
@@ -47,7 +48,7 @@ class Login(TemplateView, APIView):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return Response(data={'redirect': reverse('landing')}, status=status.HTTP_200_OK)
+                    return Response(data={'redirect': data['next'] if data.get('next') else reverse('landing')}, status=status.HTTP_200_OK)
                 else:
                     return Response('User not active', status=status.HTTP_403_FORBIDDEN)
             else:

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('ul.tabs').tabs('select_tab', 'account');
     $("#password_change").submit(function(e) {
 
         //prevent Default functionality
