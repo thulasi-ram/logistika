@@ -14,9 +14,46 @@
     </ul>
 </div>
 <div id="account" class="col s12">
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="input-field col s12 red">
+            {{form_errors}}
+        </div>
+    </div>
     {% csrf_token %}
-    {{ form|materializecss }}
+      <div class="col s12 m5">
+          <img border="0" style="display:block; width:150px; height:150px; background-color:red; padding:9px; background:url({{profile_url}}) no-repeat; background-position:-100px -40px;" />
+    </div>
+    <div class="row">
+    <div class="input-field col s12">
+        <div class="file-field input-field">
+      <div class="btn">
+        <span>Upload new profile pic</span>
+        <input type="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" name='photo' type="text">
+      </div>
+    </div>
+    </div>
+        </div>
+
+    <div class="row">
+          <div class="input-field col s6">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="first_name" name="first_name" type="text" class="validate">
+        <label for="first_name">First name</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="last_name" name="last_name" type="text" class="validate">
+        <label for="last_name">Last name</label>
+      </div>
+        </div>
+      <div class="input-field col s12">
+          <i class="material-icons prefix">phone</i>
+        <input id="phone" name="phone" type="number" class="validate">
+        <label for="phone">Phone</label>
+      </div>
         <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Save Changes</button>
 </form>
 </div>
