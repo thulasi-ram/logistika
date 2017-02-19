@@ -7,9 +7,14 @@
 {% block content %}
 <div class="row">
     <div class="col s6 offset-s3">
-        <blockquote>
-            <h3>Signup</h3>
-        </blockquote>
+        <nav>
+            <div class="nav-wrapper teal lighten-2">
+                <div class="col s12" style="padding-left:10px">
+                    <a href="/" class="breadcrumb">Home</a>
+                    <a href="/users/signup" class="breadcrumb">Signup</a>
+                </div>
+            </div>
+        </nav>
         <form id="myform" action="" method="post">
             {%csrf_token%}
             <div class="input-field col s6">

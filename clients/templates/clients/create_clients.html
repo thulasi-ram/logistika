@@ -6,13 +6,18 @@
 
 {% block content %}
 <div class="container">
-    <blockquote>
-        <h3>Create clients</h3>
-    </blockquote>
+    <nav>
+        <div class="nav-wrapper blue lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/clients" class="breadcrumb">Browse Clients</a>
+                <a href="/clients/create" class="breadcrumb">Create Clients</a>
+            </div>
+        </div>
+    </nav>
     <form action="" method="post">
         {% csrf_token %}
         {{ form|materializecss }}
-        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn">CREATE CLIENT
+        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn blue lighten-1">CREATE CLIENT
         </button>
     </form>
 </div>

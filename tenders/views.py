@@ -51,7 +51,7 @@ class CreateTender(LoginRequiredMixin, TemplateView):
             return TemplateResponse(request, self.template_name, context={'form': TenderForm})
         return TemplateResponse(request, self.template_name, context={'form': form})
 
-class ViewTender(TemplateView):
+class ViewTender(LoginRequiredMixin, TemplateView):
     template_name = 'tenders/view_tender.html'
 
     def get(self, request, *args, **kwargs):

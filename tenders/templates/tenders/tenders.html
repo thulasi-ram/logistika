@@ -6,16 +6,21 @@
 
 {% block content %}
 <div class="container">
-    <blockquote>
-        <h3>Browse Tenders:</h3>
-    </blockquote>
+    <nav>
+        <div class="nav-wrapper amber lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/tenders" class="breadcrumb">Browse Tenders</a>
+            </div>
+
+        </div>
+    </nav>
     <div class="row">
         {% for tender in tenders %}
         <div class="col s6 m6">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">{{tender.title}}</span>
-                    <p>{{tender.description}}</p>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title amber-text">{{tender.title}}</span>
+                    <p class="grey-text">{{tender.description}}</p>
                 </div>
                 <div class="card-action">
                     <a href="{{tender.id}}">View details</a>

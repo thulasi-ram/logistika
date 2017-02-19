@@ -8,19 +8,24 @@
 
 {% block content %}
 <div class="container">
-    <blockquote>
-        <h4>Tender Details:</h4>
-    </blockquote>
+    <nav>
+        <div class="nav-wrapper amber lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/tenders" class="breadcrumb">Browse Tenders</a>
+                <a href="/tenders/{{tender.id}}" class="breadcrumb">View Details</a>
+            </div>
+        </div>
+    </nav>
     <div class="card">
         <div class="card-content">
             <div class="row">
-                <h5 class="header left">{{tender.title}}</h5>
+                <h5 class="header left amber-text">{{tender.title}}</h5>
                 {% if not tender.is_active %}
                 <span class="new badge red" data-badge-caption="DELETED"></span>
                 {% endif %}
             </div>
             <div class="row">
-                <p class="left">{{tender.description}}</p>
+                <p class="left grey-text">{{tender.description}}</p>
             </div>
             <div class="divider" style="margin:20px;"></div>
             <div class="row">
@@ -33,13 +38,14 @@
                     </button>
                 </form>
 
-                <a class="waves-effect waves-light btn left orange accent-2" href="/quotes/create/?tender={{tender.id}}" style="margin:0px 15px;">Submit Quote</a>
+                <a class="waves-effect waves-light btn left green lighten-2" href="/quotes/create/?tender={{tender.id}}"
+                   style="margin:0px 15px;">Submit Quote</a>
 
             </div>
 
         </div>
         <div class="card-tabs">
-            <ul class="tabs teal">
+            <ul class="tabs amber lighten-3">
                 <li class="tab"><a href="#shipment_details">Shipment Details</a></li>
                 <li class="tab"><a class="active" href="#financial_details">Financial Details</a></li>
                 <li class="tab"><a href="#legal_details">Legal Details</a></li>
@@ -51,18 +57,24 @@
             <div id="financial_details">Financial</div>
             <div id="legal_details">Legal</div>
             <div id="quotation_details">
+                <div class="row grey">
+                    <div class="col s12">
+                        <span class="white-text center">Only tender owner can view this</span>
+                    </div>
+                </div>
+                {% if request.user.id == tender.created_by.id %}
                 <div class="row">
-                    <span class="new badge blue" data-badge-caption="QUOTES">{{quotes|length}}</span>
+                    <span class="new badge green lighten-1" data-badge-caption="QUOTES">{{quotes|length}}</span>
                 </div>
                 <ul class="collapsible" data-collapsible="accordion">
                     {% for quote in quotes %}
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">format_quote</i>{{quote.title}}</div>
-                        <div class="collapsible-body"><span>{{quote.description}}</span></div>
+                        <div class="collapsible-header"><i class="material-icons green-text">format_quote</i>{{quote.title}}</div>
+                        <div class="collapsible-body container"><span>{{quote.description}}</span></div>
                     </li>
                     {% endfor %}
                 </ul>
-
+                {% endif %}
             </div>
         </div>
     </div>

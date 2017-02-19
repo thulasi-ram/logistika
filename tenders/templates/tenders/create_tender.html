@@ -6,13 +6,18 @@
 
 {% block content %}
 <div class="container">
-    <blockquote>
-        <h3>Create Tender</h3>
-    </blockquote>
+    <nav>
+        <div class="nav-wrapper amber lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/tenders" class="breadcrumb">Browse Tenders</a>
+                <a href="/tenders/create" class="breadcrumb">Create Tenders</a>
+            </div>
+        </div>
+    </nav>
     <form action="" method="post">
         {% csrf_token %}
         {{ form|materializecss }}
-        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn">CREATE TENDER
+        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn amber lighten-2">CREATE TENDER
         </button>
     </form>
 </div>

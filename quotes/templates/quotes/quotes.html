@@ -5,20 +5,24 @@
 
 {% block content %}
 <div class="container">
-    <blockquote>
-        <h3>Browse Quotes:</h3>
-    </blockquote>
+    <nav>
+        <div class="nav-wrapper green lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/clients" class="breadcrumb">My Quotations</a>
+            </div>
+        </div>
+    </nav>
     <div class="row">
         {% for quote in quotes %}
         <div class="col s6 m6">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">{{quote.title}}</span>
-                    <p>{{quote.description}}</p>
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title green-text">{{quote.title}}</span>
+                    <p class="grey-text">{{quote.description}}</p>
                 </div>
                 <div class="card-action">
-                    <a href="#">View details</a>
-                    <a href="/tenders/{{quote.tender.id}}">View Tender</a>
+                    <a href="#" class="green-text">View details</a>
+                    <a href="/tenders/{{quote.tender.id}}" class="green-text">View Tender</a>
                 </div>
             </div>
         </div>
