@@ -1,8 +1,8 @@
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from quotes.models import Quotes
 from tenders.models import Tenders
@@ -30,7 +30,7 @@ class QuotesForm(forms.ModelForm):
         model = Quotes
         fields = ['title', 'description']
 
-class CreateQuote(TemplateView):
+class CreateQuote(LoginRequiredMixin, TemplateView):
     template_name = 'quotes/create_quotes.html'
 
     def get(self, request, *args, **kwargs):

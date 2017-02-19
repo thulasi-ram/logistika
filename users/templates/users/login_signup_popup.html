@@ -1,12 +1,11 @@
 {% load static %}
 {% block content %}
-
 <ul class="tabs tabs-fixed-width teal lighten-2">
     <li class="tab col s3"><a href="#login_pop" class="active">Login</a></li>
     <li class="tab col s3"><a href="#signup_pop">Signup</a></li>
 </ul>
 
-<div id="login_pop" class="col s12">
+<div id="login_pop" class="col s12 container">
     <form id="login" action="{% url 'users:login' %}" method="post">
         {%csrf_token%}
         <div class="input-field col s12">
@@ -26,7 +25,7 @@
     </form>
 </div>
 
-<div id="signup_pop" class="col s12">
+<div id="signup_pop" class="col s12 container">
     <form id="signup" action="{% url 'users:signup' %}" method="post">
         {%csrf_token%}
         <div class="row">
@@ -41,27 +40,27 @@
             </div>
         </div>
         <!--<div class="row">-->
-            <div class="input-field col s12">
-                <i class="material-icons prefix">email</i>
-                <input id="signup_email" name="email" type="email" class="validate" required>
-                <label for="signup_email">Email *</label>
-            </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">email</i>
+            <input id="signup_email" name="email" type="email" class="validate" required>
+            <label for="signup_email">Email *</label>
+        </div>
         <!--</div>-->
         <!--<div class="row">-->
-            <div class="input-field col s12">
-                <i class="material-icons prefix">phone</i>
-                <input id="signup_phone" name="phone" type="number" class="validate">
-                <label for="signup_phone">Phone</label>
-            </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">phone</i>
+            <input id="signup_phone" name="phone" type="number" class="validate">
+            <label for="signup_phone">Phone</label>
+        </div>
         <!--</div>-->
         <!--<div class="row">-->
-            <div class="input-field col s12">
-                <i class="material-icons prefix">keyboard</i>
-                <input type="password" name="password" id="signup_password" required/>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">keyboard</i>
+            <input type="password" name="password" id="signup_password" required/>
 
-                <label for="signup_password">Password *</label>
-                <i class="right material-icons" id="remove_red_eye">remove_red_eye</i>
-            </div>
+            <label for="signup_password">Password *</label>
+            <i class="right material-icons" id="remove_red_eye">remove_red_eye</i>
+        </div>
         <!--</div>-->
         <div class="input-field col s12">
             <button type="submit" id="signup_submit" class="waves-effect waves-light btn">Signup

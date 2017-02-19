@@ -6,43 +6,46 @@
 {% endblock %}
 {% block content %}
 <div class="row">
-  <div class="col s6 offset-s3">
-    <h4 class="center">Signup</h4>
-    <form id="myform" action="" method="post">
-      {%csrf_token%}
-      <div class="input-field col s6">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="first_name" name="first_name" type="text" class="validate">
-        <label for="first_name">First name</label>
-      </div>
-      <div class="input-field col s6">
-        <input id="last_name" name="last_name" type="text" class="validate">
-        <label for="last_name">Last name</label>
-      </div>
-      <div class="input-field col s12">
-          <i class="material-icons prefix">email</i>
-        <input id="email" name="email" type="email" class="validate" required>
-        <label for="email">Email *</label>
-      </div>
-      <div class="input-field col s12">
-          <i class="material-icons prefix">phone</i>
-        <input id="phone" name="phone" type="number" class="validate">
-        <label for="phone">Phone</label>
-      </div>
-      <div class="input-field col s12">
-          <i class="material-icons prefix">keyboard</i>
-        <input type="password" name="password" id="password" required />
+    <div class="col s6 offset-s3">
+        <blockquote>
+            <h3>Signup</h3>
+        </blockquote>
+        <form id="myform" action="" method="post">
+            {%csrf_token%}
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="first_name" name="first_name" type="text" class="validate">
+                <label for="first_name">First name</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="last_name" name="last_name" type="text" class="validate">
+                <label for="last_name">Last name</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">email</i>
+                <input id="email" name="email" type="email" class="validate" required>
+                <label for="email">Email *</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">phone</i>
+                <input id="phone" name="phone" type="number" class="validate">
+                <label for="phone">Phone</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">keyboard</i>
+                <input type="password" name="password" id="password" required/>
 
-        <label for="password">Password *</label>
-        <i class="right material-icons" id="remove_red_eye">remove_red_eye</i>
-      </div>
-      <div class="input-field col s12">
-        <button type="submit" id="submit_button" class="waves-effect waves-light btn-large green accent-4">Register
-        </button>
-        <a href="{% url 'users:login' %}"
-           class="waves-effect waves-light btn-large green accent-4">Login</a>
-      </div>
-    </form>
-  </div>
+                <label for="password">Password *</label>
+                <i class="right material-icons" id="remove_red_eye">remove_red_eye</i>
+            </div>
+            <div class="input-field col s12">
+                <button type="submit" id="submit_button" class="waves-effect waves-light btn teal">
+                    Register
+                </button>
+                <a href="{% url 'users:login' %}"
+                   class="waves-effect waves-light btn teal">Login</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

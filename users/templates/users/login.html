@@ -6,26 +6,28 @@
 {% endblock %}
 {% block content %}
 <div class="row">
-  <div class="col s6 offset-s3">
-    <h4 class="center">Login</h4>
-    <form id="myform" action="" method="post">
-      {%csrf_token%}
-      <div class="input-field col s12">
-        <input id="email" name="email" type="email" class="validate" required>
-        <label for="email">Email</label>
-      </div>
-      <div class="input-field col s12">
-        <input type="password" name="password" id="password" required/>
-        <label for="password">Password</label>
-      </div>
-      <input type="hidden" name="next" value="{{ next }}" />
-      <div class="input-field col s12">
-        <button type="submit" id="submit_button" class="waves-effect waves-light btn-large green accent-4">Login
-        </button>
-        <a href="{% url 'users:password_reset' %}"
-           class="waves-effect waves-light btn-large green accent-4">forgot password?</a>
-      </div>
-    </form>
-  </div>
+    <div class="col s6 offset-s3">
+        <blockquote>
+            <h3>Login</h3>
+        </blockquote>
+        <form id="myform" action="" method="post">
+            {%csrf_token%}
+            <div class="input-field col s12">
+                <input id="email" name="email" type="email" class="validate" required>
+                <label for="email">Email</label>
+            </div>
+            <div class="input-field col s12">
+                <input type="password" name="password" id="password" required/>
+                <label for="password">Password</label>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <div class="input-field col s12">
+                <button type="submit" id="submit_button" class="waves-effect waves-light btn teal">Login
+                </button>
+                <a href="{% url 'users:password_reset' %}"
+                   class="waves-effect waves-light btn teal">forgot password?</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

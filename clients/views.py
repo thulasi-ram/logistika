@@ -1,11 +1,10 @@
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from clients.models import Clients
-from tenders.models import Tenders
 
 
 class ClientForm(forms.ModelForm):
@@ -14,7 +13,7 @@ class ClientForm(forms.ModelForm):
         fields = ['name', 'website']
 
 
-class ClientsFeed(TemplateView):
+class ClientsFeed(LoginRequiredMixin, TemplateView):
     template_name = 'clients/clients.html'
 
     def get(self, request, *args, **kwargs):

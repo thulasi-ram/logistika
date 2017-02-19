@@ -15,6 +15,7 @@
 </head>
 <body>
 
+
 <div class="navbar-fixed">
     <nav class="teal lighten-2">
         <div class="nav-wrapper">
@@ -138,6 +139,7 @@
         </ul>
     </li>
 </ul>
+
 {% block content %}{% endblock %}
 <script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'lib/moment.js' %}"></script>
@@ -145,12 +147,10 @@
 <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
 {% block scripts %}{% endblock %}
 
-<div class="row">
-    <div id="login_signup_popup" class="modal col s4 offset-s4" style="padding:0; padding-bottom:10px;">
+<div id="login_signup_popup" class="modal col s4 offset-s4" style="padding:0; padding-bottom:10px;">
 
-        <div class="modal-content" style="padding:0;">
-            {% include "users/login_signup_popup.html" %}
-        </div>
+    <div class="modal-content" style="padding:0;">
+        {% include "users/login_signup_popup.html" %}
     </div>
 </div>
 
@@ -160,7 +160,7 @@
         <p>Rajashekar : 00000000000</p>
         <p>Thulasi : 00000000000</p>
         <h4>Request a call back:</h4>
-                <div class="row">
+        <div class="row">
             <form class="col s12">
                 <div class="row valign-wrapper">
                     <div class="input-field col s8">
@@ -169,7 +169,8 @@
                         <label for="callback_phone">Telephone</label>
                     </div>
                     <div class="col s4">
-                        <button type="submit" id="callback_submit" class="waves-effect waves-light btn right">Submit</button>
+                        <button type="submit" id="callback_submit" class="waves-effect waves-light btn right">Submit
+                        </button>
                     </div>
                 </div>
             </form>
