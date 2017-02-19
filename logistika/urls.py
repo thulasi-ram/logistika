@@ -25,6 +25,8 @@ urlpatterns = [
                   url(r'^admin/', admin.site.urls),
                   url(r'^$', Landing.as_view(), name='landing'),
                   url(r'^users/', include('users.urls', namespace='users')),
+                  url(r'^tenders/', include('tenders.urls', namespace='tenders')),
                   url(r'^quotes/', include('quotes.urls', namespace='quotes')),
+                  url(r'^clients/', include('clients.urls', namespace='clients')),
                   url(r'profile', Profile.as_view(), name='profile'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

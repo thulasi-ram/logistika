@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users',
     'tenders',
     'quotes',
+    'clients',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',

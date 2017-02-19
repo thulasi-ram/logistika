@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Tenders{% endblock %}
+{% load materializecss %}
+{% load static %}
+{% block scripts %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <blockquote>
+        <h3>Create quotes</h3>
+    </blockquote>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|materializecss }}
+        <input type="hidden" value="{{tender}}" name="tender">
+        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn">CREATE QUOTES
+        </button>
+    </form>
+</div>
+{% endblock %}

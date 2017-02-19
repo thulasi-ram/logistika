@@ -7,7 +7,7 @@ from djutil.models import TimeStampedModel
 from users.models import User
 
 
-class Tenders(TimeStampedModel, CRUDPermissions):
-    title = models.CharField(max_length=100)
-    description = models.TextField()
+class Clients(TimeStampedModel, CRUDPermissions):
+    name = models.CharField(max_length=100)
+    website = models.CharField(max_length=100)
     created_by = models.ForeignKey(User, null=True)

@@ -70,10 +70,10 @@
                 <a class="collapsible-header">Tenders<i class="material-icons">description</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a href="/quotes">Browse Tenders</a></li>
+                        <li><a href="/tenders">Browse Tenders</a></li>
                         {% if request.user.is_authenticated %}
-                        <li><a href="/quotes/create">Create a Tender</a></li>
-                        <li><a href="/quotes/create">My Tenders</a></li>
+                        <li><a href="/tenders/create">Create a Tender</a></li>
+                        <li><a href="/tenders/?q=my">My Tenders</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -88,9 +88,7 @@
                 <a class="collapsible-header">Quotations<i class="material-icons">format_quote</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a href="/quotes">Browse Quotations</a></li>
-                        <li><a href="/quotes/create">Create a Quotation</a></li>
-                        <li><a href="/quotes/create">My Quotations</a></li>
+                        <li><a href="/quotes">My Quotations</a></li>
                     </ul>
                 </div>
             </li>
@@ -105,8 +103,8 @@
                 <a class="collapsible-header">Clients<i class="material-icons">supervisor_account</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a href="/quotes/create">My Clients</a></li>
-                        <li><a href="/quotes/create">Create a Client</a></li>
+                        <li><a href="/clients">My Clients</a></li>
+                        <li><a href="/clients/create">Create a Client</a></li>
                     </ul>
                 </div>
             </li>
