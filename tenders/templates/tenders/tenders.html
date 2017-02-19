@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Tenders{% endblock %}
 {% load static %}
-{% block scripts %}{% endblock %}
+{% block scripts %}
+{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -17,7 +18,7 @@
                     <p>{{tender.description}}</p>
                 </div>
                 <div class="card-action">
-                    <a href="#">View details</a>
+                    <a href="{{tender.id}}">View details</a>
                     <a href="/quotes/create/?tender={{tender.id}}">Submit a quote</a>
                 </div>
             </div>

@@ -11,3 +11,4 @@ class Tenders(TimeStampedModel, CRUDPermissions):
     title = models.CharField(max_length=100)
     description = models.TextField()
     created_by = models.ForeignKey(User, null=True)
+    is_active = models.BooleanField(default=True)
