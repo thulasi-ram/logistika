@@ -8,7 +8,7 @@
     <nav>
         <div class="nav-wrapper green lighten-2">
             <div class="col s12" style="padding-left:10px">
-                <a href="/clients" class="breadcrumb">My Quotations</a>
+                <a href="/quotes" class="breadcrumb">My Quotations</a>
             </div>
         </div>
     </nav>
@@ -18,10 +18,13 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title green-text">{{quote.title}}</span>
+                    {% if not quote.is_active %}
+                    <span class="new badge red" data-badge-caption="DELETED"></span>
+                    {% endif %}
                     <p class="grey-text">{{quote.description}}</p>
                 </div>
                 <div class="card-action">
-                    <a href="#" class="green-text">View details</a>
+                    <a href="/quotes/{{quote.id}}" class="green-text">View details</a>
                     <a href="/tenders/{{quote.tender.id}}" class="green-text">View Tender</a>
                 </div>
             </div>

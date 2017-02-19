@@ -63,6 +63,6 @@ class ViewTender(LoginRequiredMixin, TemplateView):
         tender = Tenders.objects.get(id=tender_id)
         quotes = Quotes.objects.filter(tender=tender, is_active=True)
         if request.POST.get('delete') == 'true' and tender.is_active:
-            tender.is_disabled = True
+            tender.is_active = True
             tender.save()
         return TemplateResponse(request, self.template_name, context={'tender': tender, 'quotes': quotes})

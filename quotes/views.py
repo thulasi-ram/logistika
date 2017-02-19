@@ -46,3 +46,18 @@ class CreateQuote(LoginRequiredMixin, TemplateView):
             Quotes.objects.create(**form.cleaned_data)
             return TemplateResponse(request, self.template_name, context={'form': QuotesForm})
         return TemplateResponse(request, self.template_name, context={'form': form})
+
+
+class ViewQuote(LoginRequiredMixin, TemplateView):
+    template_name = 'quotes/view_quote.html'
+
+    def get(self, request, *args, **kwargs):
+        quote = Quotes.objects.filter(id=kwargs.get('quote_id')).first()
+        return TemplateResponse(request, self.template_name, context={'quote': quote})
+
+    def post(self, request, quote_id):
+        quote = Quotes.objects.get(id=quote_id)
+        if request.POST.get('delete') == 'true' and quote.is_active:
+            quote.is_active = False
+            quote.save()
+        return TemplateResponse(request, self.template_name, context={'quote': quote})

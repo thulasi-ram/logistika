@@ -6,14 +6,19 @@
 
 {% block content %}
 <div class="container">
-    <blockquote>
-        <h3>Create quotes</h3>
-    </blockquote>
+        <nav>
+        <div class="nav-wrapper green lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/quotes" class="breadcrumb">My Quotations</a>
+                <a href="/quotes/create" class="breadcrumb">Create Quotation</a>
+            </div>
+        </div>
+    </nav>
     <form action="" method="post">
         {% csrf_token %}
         {{ form|materializecss }}
         <input type="hidden" value="{{tender}}" name="tender">
-        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn">CREATE QUOTES
+        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn green lighten-2">CREATE QUOTES
         </button>
     </form>
 </div>

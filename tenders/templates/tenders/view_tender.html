@@ -32,7 +32,7 @@
                 <form action="" method="post" class="left">
                     {% csrf_token %}
                     <input type="hidden" value="true" name="delete">
-                    <button type="submit" id="create_tender_submit"
+                    <button type="submit" id="delete_tender_submit"
                             class="waves-effect waves-light btn red lighten-2 {% if not tender.is_active %}disabled{% endif %}">
                         DELETE
                     </button>
@@ -45,7 +45,7 @@
 
         </div>
         <div class="card-tabs">
-            <ul class="tabs amber lighten-3">
+            <ul class="tabs amber lighten-2">
                 <li class="tab"><a href="#shipment_details">Shipment Details</a></li>
                 <li class="tab"><a class="active" href="#financial_details">Financial Details</a></li>
                 <li class="tab"><a href="#legal_details">Legal Details</a></li>
@@ -70,7 +70,11 @@
                     {% for quote in quotes %}
                     <li>
                         <div class="collapsible-header"><i class="material-icons green-text">format_quote</i>{{quote.title}}</div>
-                        <div class="collapsible-body container"><span>{{quote.description}}</span></div>
+                        <div class="collapsible-body container">
+                            <div class="row"> <span>{{quote.description}}</span></div>
+                            <div class="row">
+                        <a class="waves-effect waves-light btn right green lighten-2" href="/quotes/{{quote.id}}" style="margin:0px 15px;">View Quote</a></div>
+                        </div>
                     </li>
                     {% endfor %}
                 </ul>
