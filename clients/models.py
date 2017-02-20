@@ -11,3 +11,4 @@ class Clients(TimeStampedModel, CRUDPermissions):
     name = models.CharField(max_length=100)
     website = models.CharField(max_length=100)
     created_by = models.ForeignKey(User, null=True)
+    is_active = models.BooleanField(default=True)
