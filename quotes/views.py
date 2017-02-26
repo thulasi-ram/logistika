@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
 
+from audit.models import QuotesAudit
 from quotes.models import Quotes
 from tenders.models import Tenders
 
@@ -43,7 +44,8 @@ class CreateQuote(LoginRequiredMixin, TemplateView):
         if form.is_valid():
             form.cleaned_data['created_by'] = request.user
             form.cleaned_data['tender'] = Tenders.objects.get(id=data.get('tender'))
-            Quotes.objects.create(**form.cleaned_data)
+            quote = Quotes.objects.create(**form.cleaned_data)
+            QuotesAudit.objects.create(quote=quote, message='create', user=request.user)
             return TemplateResponse(request, self.template_name, context={'form': QuotesForm})
         return TemplateResponse(request, self.template_name, context={'form': form})
 
@@ -60,4 +62,5 @@ class ViewQuote(LoginRequiredMixin, TemplateView):
         if request.POST.get('delete') == 'true' and quote.is_active:
             quote.is_active = False
             quote.save()
+            QuotesAudit.objects.create(quote=quote, message='delete', user=request.user)
         return TemplateResponse(request, self.template_name, context={'quote': quote})

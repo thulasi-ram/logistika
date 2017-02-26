@@ -66,18 +66,28 @@
                 <div class="row">
                     <span class="new badge green lighten-1" data-badge-caption="QUOTES">{{quotes|length}}</span>
                 </div>
-                <ul class="collapsible" data-collapsible="accordion">
+
+                <table class="highlight">
+                    <thead>
+                    <tr>
+                        <th data-field="id">Title</th>
+                        <th data-field="name">From</th>
+                        <th data-field="price">Price</th>
+                        <th data-field="price">Description</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
                     {% for quote in quotes %}
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons green-text">format_quote</i>{{quote.title}}</div>
-                        <div class="collapsible-body container">
-                            <div class="row"> <span>{{quote.description}}</span></div>
-                            <div class="row">
-                        <a class="waves-effect waves-light btn right green lighten-2" href="/quotes/{{quote.id}}" style="margin:0px 15px;">View Quote</a></div>
-                        </div>
-                    </li>
+                    <tr>
+                        <td><a class="green-text tooltipped" data-position="bottom" data-tooltip="View Quote" href="/quotes/{{quote.id}}">{{quote.title}}</a></td>
+                        <td>{{quote.user.organization|default:"Organization not set yet."}}</td>
+                        <td>{{quote.amount}}</td>
+                        <td>{{quote.description}}</td>
+                    </tr>
                     {% endfor %}
-                </ul>
+                    </tbody>
+                </table>
                 {% endif %}
             </div>
         </div>

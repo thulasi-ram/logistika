@@ -3,9 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
-from rest_framework.views import APIView
 
+from audit.models import TendersAudit
 from quotes.models import Quotes
+from tenders import signals
 from tenders.models import Tenders
 
 
@@ -47,9 +48,11 @@ class CreateTender(LoginRequiredMixin, TemplateView):
         form = TenderForm(data=data)
         if form.is_valid():
             form.cleaned_data['created_by'] = request.user
-            Tenders.objects.create(**form.cleaned_data)
+            tender = Tenders.objects.create(**form.cleaned_data)
+            signals.tender_created.send(sender=Tenders, instance=tender, user=request.user)
             return TemplateResponse(request, self.template_name, context={'form': TenderForm})
         return TemplateResponse(request, self.template_name, context={'form': form})
+
 
 class ViewTender(LoginRequiredMixin, TemplateView):
     template_name = 'tenders/view_tender.html'
@@ -65,4 +68,5 @@ class ViewTender(LoginRequiredMixin, TemplateView):
         if request.POST.get('delete') == 'true' and tender.is_active:
             tender.is_active = False
             tender.save()
+            signals.tender_deleted.send(sender=Tenders, instance=tender, user=request.user)
         return TemplateResponse(request, self.template_name, context={'tender': tender, 'quotes': quotes})

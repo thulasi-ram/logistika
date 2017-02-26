@@ -12,4 +12,5 @@ class Quotes(TimeStampedModel, CRUDPermissions):
     created_by = models.ForeignKey(to=User,null=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
+    amount = models.DecimalField(max_digits=100, decimal_places=4)
     is_active = models.BooleanField(default=True)
