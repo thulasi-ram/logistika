@@ -1,12 +1,24 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 .side-nav {
     z-index: 995;
     margin-top: 64px;
     padding-top: 5px;
 
 }
+
 #sidenav-overlay {
     display: none;
 }
+
 .tabs .tab a.active {
   color: white;
 }
@@ -19,6 +31,7 @@
 .tabs .tab a {
   color: white;
 }
+
 .tabs .indicator {
     background-color: white;
 }

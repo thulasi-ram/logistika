@@ -15,192 +15,245 @@
 </head>
 <body>
 
+<header>
+    <div class="navbar-fixed">
+        <nav class="teal lighten-2">
+            <div class="nav-wrapper">
+                <a href="#" id="hamburger-menu-button" data-activates="hamburger-menu"
+                   class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+                <a href="/" class="brand-logo center">Logistika</a>
+                <!--<div class="right dropdown-button valign-wrapper hide-on-med-and-down" data-activates="profile_dropdown"-->
+                <!--data-constrainwidth="false">-->
+                <!--<a class="btn-floating left btn-large red valign">{{request.user.get_short_name|slice:":1"|default:"G"}}</a>-->
+                <!--<i class="material-icons left large">arrow_drop_down</i>-->
+                <!--</div>-->
+                <ul class="right">
+                    {% if request.user.is_authenticated %}
+                    <li><a href="/users/logout/" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout"><i class="material-icons">exit_to_app</i></a></li>
+                    {% else %}
+                    <li><a href="#login_signup_popup" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Join Us"><i class="material-icons">group_add</i></a></li>
+                    {% endif %}
+                </ul>
 
-<div class="navbar-fixed">
-    <nav class="teal lighten-2">
-        <div class="nav-wrapper">
-            <a href="#" id="hamburger-menu-button" data-activates="hamburger-menu"
-               class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
-            <a href="/" class="brand-logo center">Logistika</a>
-            <div class="right dropdown-button valign-wrapper hide-on-med-and-down" data-activates="profile_dropdown"
-                 data-constrainwidth="false">
-                <a class="btn-floating left btn-large red valign">{{request.user.get_short_name|slice:":1"|default:"G"}}</a>
-                <i class="material-icons left large">arrow_drop_down</i>
+            </div>
+        </nav>
+    </div>
+
+    <ul id="profile_dropdown" class="dropdown-content">
+        {% if request.user.is_authenticated %}
+        <li><a href="/profile">Account Settings</a></li>
+        <li class="divider"></li>
+        <li><a href="/users/logout/">Logout</a></li>
+        {% else %}
+        <li><a href="#login_signup_popup">Login/Signup</a></li>
+        {% endif %}
+    </ul>
+
+    <ul id="hamburger-menu" class="side-nav">
+        <li class1="hide-on-large-only">
+            <div class="valign-wrapper" style="padding:0">
+                <a class="btn-floating btn-large red" style="padding:0;line-height:56px;">{{request.user.get_short_name|slice:":1"|default:"*"}}</a>
+                <span class="truncate">
+                    Hi, {% if request.user.is_authenticated %}
+                            {{request.user.get_short_name}}
+                        {% else %}
+                            Guest
+                        {% endif %}
+                </span>
+            </div>
+            <ul class="hide">
+                {% if request.user.is_authenticated %}
+                <li><a href="/users/logout/"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                {% else %}
+                <li><a href="#login_signup_popup"><i class="material-icons">accessibility</i>Login/Signup</a></li>
+                {% endif %}
+            </ul>
+            <div class="divider"></div>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="/">Home<i class="material-icons">home</i></a>
+                </li>
+            </ul>
+        </li>
+
+        {% if request.user.is_authenticated %}
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">Account Settings<i class="material-icons">account_box</i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/profile">My Profile</a></li>
+                            <li><a href="/profile">Change password</a></li>
+                            <li><a href="/profile">Organization Settings</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        {% endif %}
+
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">Tenders<i class="material-icons">description</i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/tenders">Browse Tenders</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="/tenders/create">Create a Tender</a></li>
+                            <li><a href="/tenders/?q=my">My Tenders</a></li>
+                            <li><a href="/tenders/shared">Shared Tenders</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        {% if request.user.is_authenticated %}
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">Quotations<i class="material-icons">format_quote</i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/quotes">My Quotations</a></li>
+                            <li><a href="/tenders">Submit a quote</a></li>
+                            <li><a href="/quotes/shared">Shared quotes</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">Clients<i class="material-icons">people</i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="/clients">My Clients</a></li>
+                            <li><a href="/clients/create">Create a Client</a></li>
+                            <!--<li><a href="/clients/groups">Manage Client Groups</a></li>-->
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+         <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="/notifications">Notifications<i class="material-icons">notifications</i></a>
+                </li>
+            </ul>
+        </li>
+        {% endif %}
+
+
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="#">Help<i class="material-icons">help</i></a>
+                </li>
+            </ul>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="#">FAQs<i class="material-icons">question_answer</i></a>
+                </li>
+            </ul>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="#contact_us_modal">Contact us<i
+                            class="material-icons">feedback</i></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+    <script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/moment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/materialize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+    {% block scripts %}{% endblock %}
+
+    <div id="login_signup_popup" class="modal col s4 offset-s4" style="padding:0; padding-bottom:10px;">
+
+        <div class="modal-content" style="padding:0;">
+            {% include "users/login_signup_popup.html" %}
+        </div>
+    </div>
+
+    <div id="contact_us_modal" class="modal">
+        <div class="modal-content">
+            <h4>Contacts</h4>
+            <p>Rajashekar : 00000000000</p>
+            <p>Thulasi : 00000000000</p>
+            <h4>Request a call back:</h4>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row valign-wrapper">
+                        <div class="input-field col s8">
+                            <i class="material-icons prefix">phone</i>
+                            <input id="callback_phone" type="tel" class="validate">
+                            <label for="callback_phone">Telephone</label>
+                        </div>
+                        <div class="col s4">
+                            <button type="submit" id="callback_submit" class="waves-effect waves-light btn right">Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <h4>Email us:</h4>
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <input id="contactus_subject" type="email" class="validate">
+                            <label for="contactus_subject">Your Email</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <textarea id="contactus_message" class="materialize-textarea"></textarea>
+                            <label for="contactus_message">Message</label>
+                        </div>
+                        <button type="submit" id="query_submit" class="waves-effect waves-light btn right">Send</button>
+
+                    </div>
+                </form>
             </div>
         </div>
-    </nav>
-</div>
-
-<ul id="profile_dropdown" class="dropdown-content">
-    {% if request.user.is_authenticated %}
-    <li><a href="/profile">Account Settings</a></li>
-    <li class="divider"></li>
-    <li><a href="/users/logout/">Logout</a></li>
-    {% else %}
-    <li><a href="#login_signup_popup">Login/Signup</a></li>
-    {% endif %}
-</ul>
-
-<ul id="hamburger-menu" class="side-nav">
-    <li class="hide-on-large-only">
-        <div class="valign-wrapper" style="padding:0">
-            <a class="btn-floating btn-large red" style="padding:0;line-height:56px;">{{request.user.get_short_name|slice:":1"|default:"G"}}</a>
-            <span class="truncate">Hi, {{request.user.get_short_name|default:"Guest"}}</span>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
         </div>
+    </div>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red">
+            <i class="large material-icons">add</i>
+        </a>
         <ul>
-            {% if request.user.is_authenticated %}
-            <li><a href="/profile"><i class="material-icons">account_box</i>Account Settings</a></li>
-            <li><a href="/users/logout/"><i class="material-icons">exit_to_app</i>Logout</a></li>
-            {% else %}
-            <li><a href="#login_signup_popup">Login/Signup</a></li>
-            {% endif %}
-        </ul>
-        <div class="divider"></div>
-    </li>
-    <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-            <li>
-                <a class="collapsible-header" href="/">Home<i class="material-icons">home</i></a>
+            <li><a class="btn-floating blue" href="/clients/create"><i class="material-icons">people</i></a>
             </li>
+            <li><a class="btn-floating amber" href="/tenders/create"><i class="material-icons">description</i></a></li>
         </ul>
-    </li>
-
-    <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-            <li>
-                <a class="collapsible-header">Tenders<i class="material-icons">description</i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="/tenders">Browse Tenders</a></li>
-                        {% if request.user.is_authenticated %}
-                        <li><a href="/tenders/create">Create a Tender</a></li>
-                        <li><a href="/tenders/?q=my">My Tenders</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </li>
-
-    {% if request.user.is_authenticated %}
-    <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-            <li>
-                <a class="collapsible-header">Quotations<i class="material-icons">format_quote</i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="/quotes">My Quotations</a></li>
-                        <li><a href="/tenders">Submit a quote</a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </li>
-    {% endif %}
-
-    {% if request.user.is_authenticated %}
-    <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-            <li>
-                <a class="collapsible-header">Clients<i class="material-icons">supervisor_account</i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="/clients">My Clients</a></li>
-                        <li><a href="/clients/create">Create a Client</a></li>
-                        <!--<li><a href="/clients/groups">Manage Client Groups</a></li>-->
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </li>
-    {% endif %}
-
-
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-            <li>
-                <a class="collapsible-header" href="#">Help<i class="material-icons">help</i></a>
-            </li>
-        </ul>
-    </li>
-    <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-            <li>
-                <a class="collapsible-header" href="#">FAQs<i class="material-icons">question_answer</i></a>
-            </li>
-        </ul>
-    </li>
-    <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-            <li>
-                <a class="collapsible-header" href="#contact_us_modal">Contact us<i class="material-icons">feedback</i></a>
-            </li>
-        </ul>
-    </li>
-</ul>
-
-{% block content %}{% endblock %}
-<script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'lib/moment.js' %}"></script>
-<script type="text/javascript" src="{% static 'lib/materialize.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/base.js' %}"></script>
-{% block scripts %}{% endblock %}
-
-<div id="login_signup_popup" class="modal col s4 offset-s4" style="padding:0; padding-bottom:10px;">
-
-    <div class="modal-content" style="padding:0;">
-        {% include "users/login_signup_popup.html" %}
     </div>
-</div>
-
-<div id="contact_us_modal" class="modal">
-    <div class="modal-content">
-        <h4>Contacts</h4>
-        <p>Rajashekar : 00000000000</p>
-        <p>Thulasi : 00000000000</p>
-        <h4>Request a call back:</h4>
-        <div class="row">
-            <form class="col s12">
-                <div class="row valign-wrapper">
-                    <div class="input-field col s8">
-                        <i class="material-icons prefix">phone</i>
-                        <input id="callback_phone" type="tel" class="validate">
-                        <label for="callback_phone">Telephone</label>
-                    </div>
-                    <div class="col s4">
-                        <button type="submit" id="callback_submit" class="waves-effect waves-light btn right">Submit
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <h4>Email us:</h4>
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">email</i>
-                        <input id="contactus_subject" type="email" class="validate">
-                        <label for="contactus_subject">Your Email</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">mode_edit</i>
-                        <textarea id="contactus_message" class="materialize-textarea"></textarea>
-                        <label for="contactus_message">Message</label>
-                    </div>
-                    <button type="submit" id="query_submit" class="waves-effect waves-light btn right">Send</button>
-
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
-    </div>
-</div>
+</main>
 
 <footer class="page-footer">
     <div class="container">
