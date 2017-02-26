@@ -13,3 +13,5 @@ class Tenders(TimeStampedModel, CRUDPermissions):
     created_by = models.ForeignKey(User, null=True)
     is_active = models.BooleanField(default=True)
 
+    def get_view_url(self):
+        return "/{app_name}/{id}".format(app_name=self.__module__.split('.')[0], id=self.id)

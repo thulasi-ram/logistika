@@ -13,6 +13,12 @@
         </div>
     </nav>
     <div class="row">
+        <div class="input-field col s4">
+            <input type="checkbox" class="filled-in" id="deleted-tenders-filter" checked="checked"/>
+            <label for="deleted-tenders-filter">Show only active quotes</label>
+        </div>
+    </div>
+    <div class="row">
         {% for quote in quotes %}
         <div class="col s6 m6">
             <div class="card">

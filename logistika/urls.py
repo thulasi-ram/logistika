@@ -28,5 +28,6 @@ urlpatterns = [
                   url(r'^tenders/', include('tenders.urls', namespace='tenders')),
                   url(r'^quotes/', include('quotes.urls', namespace='quotes')),
                   url(r'^clients/', include('clients.urls', namespace='clients')),
+                  url(r'^notifications/', include('notifications.urls', namespace='notifications')),
                   url(r'profile', Profile.as_view(), name='profile'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -15,6 +15,16 @@
         </div>
     </nav>
     <div class="row">
+        <div class="input-field col s4">
+            <input type="checkbox" class="filled-in" id="my-tender-filter" checked="checked"/>
+            <label for="my-tender-filter">Show only my tenders</label>
+        </div>
+        <div class="input-field col s4">
+            <input type="checkbox" class="filled-in" id="deleted-tenders-filter" checked="checked"/>
+            <label for="deleted-tenders-filter">Show only active tenders</label>
+        </div>
+    </div>
+    <div class="row">
         {% for tender in tenders %}
         <div class="col s6 m6">
             <div class="card">

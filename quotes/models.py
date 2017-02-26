@@ -14,3 +14,6 @@ class Quotes(TimeStampedModel, CRUDPermissions):
     description = models.TextField()
     amount = models.DecimalField(max_digits=100, decimal_places=4)
     is_active = models.BooleanField(default=True)
+
+    def get_view_url(self):
+        return "/{app_name}/{id}".format(app_name=self.__module__.split('.')[0], id=self.id)
