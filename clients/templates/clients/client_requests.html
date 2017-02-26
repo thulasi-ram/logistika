@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Clients{% endblock %}
+{% load static %}
+{% block scripts %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper blue lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="{% url 'clients:feed' %}" class="breadcrumb">Browse Clients</a>
+                <a href="{% url 'clients:requests' %}" class="breadcrumb">Client Requests</a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="input-field col s3">
+            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked"/>
+            <label for="filled-in-box">Show only unread</label>
+        </div>
+        <div class="input-field col s4 right">
+            <a class="waves-effect waves-light btn-flat right teal-text"><i class="material-icons left">clear_all</i>Mark
+                all as read</a>
+        </div>
+    </div>
+    {% for cli_req in client_requests %}
+    <div class="card-panel white">
+        <span class="teal-text text-darken-2">{{cli_req.invited_by.name}} has invited you.</span>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

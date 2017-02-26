@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% load static %}
+{% load materializecss %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/organization.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper teal lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="{% url 'users:organization' %}" class="breadcrumb">Organization</a>
+            </div>
+        </div>
+    </nav>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s8 offset-s2">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">business</i>
+                        <input type="text" id="autocomplete-input" class="autocomplete">
+                        <label for="autocomplete-input">Find your Organization</label>
+                    </div>
+                </div>
+            </div>
+            <div class="input-field col s8 offset-s2 center">
+                <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Set Organization</button>
+            </div>
+        </div>
+    </form>
+        <div class="row">
+            <div class="col s8 offset-s2 center">
+                <span><h4 class="red-text text-lighten-3"><u>Did not find your organization?</u></h4></span>
+                <p> The onboarding process of an organization might take a few initial steps as the admin for the
+                    organization
+                    has to be configured. Once done the admin can board all the others in that particular organization
+                    and
+                    over see
+                    the operations. Our onboarding expert will call you to request you an appointment and visit you
+                    personally once you fill out the below
+                    form.</p>
+            </div>
+            </div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="row">
+            <div class="input-field col s8 offset-s2">
+                <i class="material-icons prefix">phone</i>
+                <input id="icon_telephone" type="tel" class="validate">
+                <label for="icon_telephone">Telephone</label>
+            </div>
+            <div class="input-field col s8 offset-s2">
+                <i class="material-icons prefix">mode_edit</i>
+                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                <label for="icon_prefix2">Your address</label>
+            </div>
+            <div class="input-field col s8 offset-s2 center">
+                <button type="submit" value="Submit" class="waves-effect waves-light btn red lighten-2">Request
+                    Onboarding
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

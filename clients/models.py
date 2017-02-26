@@ -8,7 +8,12 @@ from users.models import User
 
 
 class Clients(TimeStampedModel, CRUDPermissions):
-    name = models.CharField(max_length=100)
-    website = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
     created_by = models.ForeignKey(User, null=True)
     is_active = models.BooleanField(default=True)
+    is_approved = models.BooleanField(default=False)
+
+class ClientRequests(TimeStampedModel, CRUDPermissions):
+    user = models.ForeignKey(User, related_name='invitee')
+    invited_by = models.ForeignKey(User, related_name='inviter')
+    is_accepted = models.BooleanField(default=False)

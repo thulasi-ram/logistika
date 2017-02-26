@@ -7,11 +7,8 @@ from django.views.generic import TemplateView
 from clients.models import Clients
 
 
-class ClientForm(forms.ModelForm):
-    class Meta:
-        model = Clients
-        fields = ['name', 'website']
-
+class ClientForm(forms.Form):
+    email = forms.EmailField()
 
 class ClientsFeed(LoginRequiredMixin, TemplateView):
     template_name = 'clients/clients.html'
@@ -31,8 +28,8 @@ class ClientsFeed(LoginRequiredMixin, TemplateView):
         return TemplateResponse(request, self.template_name, {'clients': clients})
 
 
-class CreateClient(LoginRequiredMixin, TemplateView):
-    template_name = 'clients/create_clients.html'
+class InviteClient(LoginRequiredMixin, TemplateView):
+    template_name = 'clients/invite_clients.html'
 
     def get(self, request, *args, **kwargs):
         return TemplateResponse(request, self.template_name, context={'form': ClientForm})

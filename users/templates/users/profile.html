@@ -10,7 +10,7 @@
     <nav>
         <div class="nav-wrapper teal lighten-2">
             <div class="col s12" style="padding-left:10px">
-                <a href="/profile" class="breadcrumb">My Profile</a>
+                <a href="{% url 'users:profile' %}" class="breadcrumb">My Profile</a>
             </div>
         </div>
     </nav>
@@ -20,20 +20,6 @@
             <div class="input-field col s12 center">
                 <img src="{% static 'images/account.png' %}" alt="" class="circle responsive-img" style="width:150px;">
             </div>
-            <!--<div class="input-field col s6 offset-s3">-->
-                <!--<div class="file-field input-field">-->
-                    <!--<div class="btn">-->
-                        <!--<span>Upload new profile pic</span>-->
-                        <!--<input type="file">-->
-                    <!--</div>-->
-                    <!--<div class="file-path-wrapper">-->
-                        <!--<input class="file-path validate" name='photo' type="text">-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <div class="row">
             <div class="input-field col s3 offset-s3">
                 <i class="material-icons prefix">account_circle</i>
                 <input id="first_name" name="first_name" type="text" class="validate">
