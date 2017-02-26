@@ -12,10 +12,10 @@ from users.models import User
 class TendersAudit(TimeStampedModel, CRUDPermissions):
     tender = models.ForeignKey(Tenders)
     message = models.CharField(max_length=100)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True)
 
 
 class QuotesAudit(TimeStampedModel, CRUDPermissions):
     quote = models.ForeignKey(Quotes)
     message = models.CharField(max_length=100)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True)
