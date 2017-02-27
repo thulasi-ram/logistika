@@ -1,5 +1,8 @@
 $(document).ready(function() {
     $('ul.tabs').tabs('select_tab', 'account');
+    document.getElementById('profile_image_display').onclick = function() {
+    document.getElementById('profile_image').click();
+       };
     $("#password_change").submit(function(e) {
 
         //prevent Default functionality

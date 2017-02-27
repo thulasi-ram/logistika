@@ -7,14 +7,14 @@ from users.views.forgot_password import ForgotPassword
 from users.views.login import Login
 from users.views.logout import Logout
 from users.views.organization import UserOrganization
-from users.views.profile import Profile
+from users.views.profile import ProfileEdit
 from users.views.signup import SignUp
 
 urlpatterns = [
     url(r'login', Login.as_view(), name='login'),
     url(r'signup', SignUp.as_view(), name='signup'),
     url(r'logout', Logout.as_view(), name='logout'),
-    url(r'profile', Profile.as_view(), name='profile'),
+    url(r'profile', ProfileEdit.as_view(), name='profile'),
     url(r'organization', UserOrganization.as_view(), name='organization'),
     url(r'^forgot/password/$', ForgotPassword.as_view(), name="password_reset"),
     url(r'^change-password/$', ChangePassword.as_view(), name="password_change"),

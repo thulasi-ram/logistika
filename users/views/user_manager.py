@@ -22,4 +22,16 @@ class CustomUserManager(UserManager):
     def create_user(self, email, password, is_staff=False, is_superuser=False, is_active=True, **kwargs):
         return self._create_user(email, password, is_staff, is_superuser, is_active, **kwargs)
 
+    def filter(self, **kwargs):
+        if 'username' in kwargs:
+            kwargs['username__iexact'] = kwargs['username']
+            del kwargs['username']
+        return super(CustomUserManager, self).filter(**kwargs)
+
+    def get(self, **kwargs):
+        if 'username' in kwargs:
+            kwargs['username__iexact'] = kwargs['username']
+            del kwargs['username']
+        return super(CustomUserManager, self).get(**kwargs)
+
 

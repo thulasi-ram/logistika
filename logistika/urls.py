@@ -13,12 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
-from django.contrib import admin
 from django.conf import settings
+from django.conf.urls import url, include
 from django.conf.urls.static import static
+from django.contrib import admin
 
-from users.views.profile import Profile
+from users.views.profile import ProfileView
 from views.landing import Landing
 
 urlpatterns = [
@@ -29,4 +29,5 @@ urlpatterns = [
                   url(r'^quotes/', include('quotes.urls', namespace='quotes')),
                   url(r'^clients/', include('clients.urls', namespace='clients')),
                   url(r'^notifications/', include('notifications.urls', namespace='notifications')),
+                  url(r'^(?P<user_name>[a-zA-Z0-9-_]+)/$', ProfileView.as_view(), name="profile"),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

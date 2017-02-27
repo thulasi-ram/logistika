@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.core.urlresolvers import reverse
 from django.template import loader
 
-from users.models import User
+from users.models import User, Profile
 
 
 @admin.register(User)
@@ -38,3 +38,5 @@ class UserAdmin(BaseUserAdmin):
             obj.email_user(subject, message)
             obj.is_staff = True
         super(UserAdmin, self).save_model(request, obj, form, change)
+
+admin.site.register(Profile)

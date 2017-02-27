@@ -25,6 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions
     last_name = models.CharField(_('Last Name'), max_length=254, blank=True, default="")
 
     email = models.EmailField(_('email address'), max_length=254, unique=True)
+    username = models.CharField(_('user name'), max_length=254, unique=True)
     phone_number = models.CharField(_('phone_number'), max_length=20, blank=True, default="")
 
     is_staff = models.BooleanField(_('staff status'), default=False, help_text=_(
@@ -64,14 +65,27 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions
         salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
         self.confrmation_key = hashlib.sha1(salt + email).hexdigest()
 
+    def get_profile_context(self):
+        return {'profile_url': self.get_profile_image_url()}
+
+    def get_profile_initial(self):
+        return {'phone': self.phone_number,
+                'first_name': self.first_name,
+                'last_name': self.last_name}
+
+    def get_profile_image_url(self):
+        try:
+            return self.profile.photo
+        except:
+            return ''
     @property
     def is_admin(self):
         return self.is_staff
 
 
 class Profile(TimeStampedModel, CRUDPermissions):
-    user = models.OneToOneField(User, related_name='user')
-    photo = models.ImageField(upload_to='uploads/', null=True, blank=True)
+    user = models.OneToOneField(User, related_name='profile')
+    photo = models.ImageField(upload_to='profile_images/', default='profile_images/account.png')
     website = models.URLField(default='', blank=True)
     bio = models.TextField(default='', blank=True)
     phone = models.CharField(max_length=20, blank=True, default='')

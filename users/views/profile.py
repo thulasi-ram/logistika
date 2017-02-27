@@ -2,12 +2,19 @@ from string import Template
 
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
+from django.http import Http404
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.safestring import mark_safe
+from django.contrib.auth import get_user_model
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import widgets, ClearableFileInput, TextInput
 from rest_framework import serializers
+
+from users.models import Profile
 
 
 class ProfileSerializer(serializers.Serializer):
@@ -35,18 +42,47 @@ class ProfileSerializer(serializers.Serializer):
                                      })
 
 
-class Profile(LoginRequiredMixin, TemplateView):
-    template_name = 'users/profile.html'
+class ProfileEditForm(forms.Form):
+    profile_image = forms.ImageField(required=False)
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    phone = forms.CharField(required=False)
+
+
+class ProfileView(TemplateView):
+    template_name = 'users/profile_view.html'
 
     def get(self, request, *args, **kwargs):
-        context = {'profile_url': request.user}
+        user_name = kwargs.get('user_name')
+        try:
+            if not user_name:
+                raise Http404("User name not valid")
+            user = get_user_model().objects.get(username=user_name)
+            return TemplateResponse(request, self.template_name, context=user.get_profile_context())
+        except get_user_model().DoesNotExist:
+            raise Http404("User does not exist")
+
+
+class ProfileEdit(LoginRequiredMixin, TemplateView):
+    template_name = 'users/profile_edit.html'
+
+    def get(self, request, *args, **kwargs):
+        form = ProfileEditForm(initial=request.user.get_profile_initial())
+        context = {'form': form}
+        context.update(request.user.get_profile_context())
         return TemplateResponse(request, self.template_name, context=context)
 
     def post(self, request):
-        data = request.POST
-        serializer = ProfileSerializer(data=data)
-        if serializer.is_valid():
-            context = {'profile_url': request.user}
+        form = ProfileEditForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = request.user
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.phone_number = form.cleaned_data['phone']
+            user.save()
+            if form.cleaned_data.get('profile_image'):
+                user.profile.photo = form.cleaned_data['profile_image']
+                user.profile.save()
+            return HttpResponseRedirect(reverse('users:profile'))
         else:
-            context = {'form_errors': serializer.errors}
-        return TemplateResponse(request, self.template_name, context=context)
+            return TemplateResponse(request, self.template_name, context={'form': form})
