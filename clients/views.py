@@ -4,11 +4,12 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
 
-from clients.models import Clients
+from clients.models import Clients, ClientRequests
 
 
 class ClientForm(forms.Form):
     email = forms.EmailField()
+
 
 class ClientsFeed(LoginRequiredMixin, TemplateView):
     template_name = 'clients/clients.html'
@@ -43,6 +44,7 @@ class InviteClient(LoginRequiredMixin, TemplateView):
             return TemplateResponse(request, self.template_name, context={'form': ClientForm})
         return TemplateResponse(request, self.template_name, context={'form': form})
 
+
 class ViewClient(LoginRequiredMixin, TemplateView):
     template_name = 'clients/view_client.html'
 
@@ -56,3 +58,29 @@ class ViewClient(LoginRequiredMixin, TemplateView):
             client.is_active = False
             client.save()
         return TemplateResponse(request, self.template_name, context={'client': client})
+
+
+class ClientRequestsForm(forms.ModelForm):
+    class Meta:
+        model = ClientRequests
+        fields = '__all__'
+
+
+class ClientRequestsView(LoginRequiredMixin, TemplateView):
+    template_name = 'clients/client_requests.html'
+
+    def get(self, request, *args, **kwargs):
+        client_reqs = ClientRequests.objects.filter(user=request.user)
+        return TemplateResponse(request, self.template_name, context={'client_requests': client_reqs})
+
+    def post(self, request):
+        data = request.POST
+        if data.get('cli_req_id'):
+            cli_req = ClientRequests.objects.get(id=data['cli_req_id'])
+            if 'accept' in data:
+                cli_req.status = ClientRequests.ACCEPTED
+            if 'reject' in data:
+                cli_req.status = ClientRequests.REJECTED
+            cli_req.save()
+        client_reqs = ClientRequests.objects.filter(user=request.user)
+        return TemplateResponse(request, self.template_name, context={'client_requests': client_reqs})

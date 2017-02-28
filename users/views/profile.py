@@ -47,6 +47,7 @@ class ProfileEditForm(forms.Form):
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
     phone = forms.CharField(required=False)
+    email = forms.EmailField(disabled=True)
 
 
 class ProfileView(TemplateView):
