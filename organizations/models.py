@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.db import models
 from djutil.models import TimeStampedModel
 
@@ -20,3 +21,13 @@ class Organization(TimeStampedModel, CRUDPermissions):
     legal_address = models.ForeignKey(Address, null=True, related_name='legal_address')
     billing_address = models.ForeignKey(Address, null=True, related_name='billing_address')
     is_active = models.BooleanField(default=True)
+
+
+class OrganizationOnboard(TimeStampedModel, CRUDPermissions):
+    PENDING = 'pending'
+    ONBOARDED = 'onboarded'
+    STATUS_CHOICES = ((PENDING, PENDING), (ONBOARDED, ONBOARDED))
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL)
+    address = models.TextField()
+    telephone = models.CharField(max_length=20)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES)

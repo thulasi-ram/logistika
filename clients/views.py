@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
 
@@ -16,7 +17,7 @@ class ClientsFeed(LoginRequiredMixin, TemplateView):
     template_name = 'clients/clients.html'
 
     def get(self, request, *args, **kwargs):
-        clients = Clients.objects.filter(created_by=request.user)
+        clients = ClientRequests.objects.filter(status=ClientRequests.ACCEPTED).filter(Q(user=request.user) | Q(invited_by=request.user))
         page = request.GET.get('page')
         items_per_page = request.META.get('items_per_page', 10)
         paginator = Paginator(clients, items_per_page)

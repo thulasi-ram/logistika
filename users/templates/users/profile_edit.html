@@ -18,10 +18,11 @@
         {% csrf_token %}
         <div class="row">
             <div class="input-field col s6 offset-s3 center" id="profile_image_display">
-                <img src="{% static profile_url %}" alt="" class="circle responsive-img" style="width:150px;height:150px;">
+                <img src="{% static profile_url %}" alt="" class="circle responsive-img"
+                     style="width:150px;height:150px;">
                 <input type="file" id="profile_image" name='profile_image' style="visibility:hidden;">
             </div>
-            </div>
+        </div>
         <div class="row">
             <div class="input-field col s3 offset-s3">
                 <i class="material-icons prefix">account_circle</i>
@@ -42,12 +43,12 @@
             </div>
             <div class="input-field col s6 offset-s3">
                 <i class="material-icons prefix">email</i>
-               {{ form.email }}
+                {{ form.email }}
                 {{ form.email.label_tag }}
                 {{ form.email.errors }}
             </div>
             <div class="input-field col s6 offset-s3 center">
-              <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Save Changes</button>
+                <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Save Changes</button>
             </div>
         </div>
 
