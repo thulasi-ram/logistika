@@ -32,13 +32,14 @@ class OrganizationOnboard(TimeStampedModel, CRUDPermissions):
     telephone = models.CharField(max_length=20)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
 
+
 class OrganizationRequests(TimeStampedModel, CRUDPermissions):
     ACCEPTED = 'accepted'
     REJECTED = 'rejected'
     NOT_ACTED = ''
     STATUS_CHOICES = ((ACCEPTED, ACCEPTED), (REJECTED, REJECTED), (NOT_ACTED, NOT_ACTED))
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user')
-    org = models.ForeignKey(Organization, related_name='org')
+    org = models.ForeignKey(Organization, related_name='org_req')
     status = models.CharField(default=NOT_ACTED, blank=True, choices=STATUS_CHOICES, max_length=20)
 
     def is_pending(self):
