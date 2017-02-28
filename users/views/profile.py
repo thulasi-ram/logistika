@@ -59,7 +59,7 @@ class ProfileView(TemplateView):
             if not user_name:
                 raise Http404("User name not valid")
             user = get_user_model().objects.get(username=user_name)
-            return TemplateResponse(request, self.template_name, context=user.get_profile_context())
+            return TemplateResponse(request, self.template_name, context={'user':user})
         except get_user_model().DoesNotExist:
             raise Http404("User does not exist")
 

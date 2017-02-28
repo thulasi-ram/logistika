@@ -3,12 +3,16 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.core.urlresolvers import reverse
 from django.template import loader
 
-from users.models import User, Profile
+from users.models import User, Profile, Roles
 
+
+admin.site.register(Roles)
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'email', 'phone_number', 'is_superuser', 'is_staff', 'is_active')
+    list_display = (
+    'id', 'first_name', 'last_name', 'email', 'phone_number', 'is_superuser', 'is_staff', 'is_active', 'organization',
+    'role')
     search_fields = ('email',)
     ordering = ('email',)
     list_filter = ('is_superuser', 'is_staff', 'is_active')
@@ -16,7 +20,8 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Personal Info', {'fields': ('first_name', 'last_name', 'phone_number')}),
         ('Permissions and Groups', {'fields': ('is_staff', 'is_active', 'is_superuser',
-                                               'groups')})
+                                               'groups')}),
+        ('Organization', {'fields': ('organization', 'role')})
     )
     add_fieldsets = (
         (None, {'fields': ('email', 'password1', 'password2')}),
@@ -38,5 +43,6 @@ class UserAdmin(BaseUserAdmin):
             obj.email_user(subject, message)
             obj.is_staff = True
         super(UserAdmin, self).save_model(request, obj, form, change)
+
 
 admin.site.register(Profile)

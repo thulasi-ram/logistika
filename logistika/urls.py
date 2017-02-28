@@ -29,5 +29,6 @@ urlpatterns = [
                   url(r'^quotes/', include('quotes.urls', namespace='quotes')),
                   url(r'^clients/', include('clients.urls', namespace='clients')),
                   url(r'^notifications/', include('notifications.urls', namespace='notifications')),
+                  url(r'^organizations/', include('organizations.urls', namespace='organizations')),
                   url(r'^(?P<user_name>[a-zA-Z0-9-_]+)/$', ProfileView.as_view(), name="profile"),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

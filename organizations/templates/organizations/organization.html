@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Organization{% endblock %}
+{% load materializecss %}
+{% load static %}
+{% block scripts %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper lime darken-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="{% url 'organizations:view' org.id %}" class="breadcrumb">View Organization</a>
+            </div>
+        </div>
+    </nav>
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <h5 class="header left lime-text">{{org.name}}</h5>
+            </div>
+            <div class="row">
+                <p class="left grey-text">{{org.website}}</p>
+            </div>
+            <div class="divider" style="margin:20px;"></div>
+        </div>
+        <div class="card-tabs">
+            <ul class="tabs lime darken-2">
+                <li class="tab"><a href="#address_details">Address Details</a></li>
+                <li class="tab"><a href="#biliing_details">Billing Details</a></li>
+                <li class="tab"><a href="#user_details">User Details</a></li>
+            </ul>
+        </div>
+        <div class="card-content grey lighten-4">
+            <div id="address_details">Address</div>
+            <div id="biliing_details">Billing</div>
+            <div id="user_details">User</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

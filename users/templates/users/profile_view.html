@@ -10,40 +10,29 @@
     <nav>
         <div class="nav-wrapper teal lighten-2">
             <div class="col s12" style="padding-left:10px">
-                <a href="{% url 'users:profile' %}" class="breadcrumb">My Profile</a>
+                <a href="{% url 'profile' user.username %}" class="breadcrumb">{{user.username|capfirst}} Profile</a>
             </div>
         </div>
     </nav>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-            <div class="input-field col s12 center">
-                <img src="{% static 'images/account.png' %}" alt="" class="circle responsive-img" style="width:150px;">
+    <div class="row">
+          <div class="input-field col s6 offset-s3 center" id="profile_image_display">
+                <img src="{% static user.get_profile_image_url %}" alt="" class="circle responsive-img"
+                     style="width:150px;height:150px;">
             </div>
-            <div class="input-field col s3 offset-s3">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="first_name" name="first_name" type="text" class="validate">
-                <label for="first_name">First name</label>
-            </div>
-            <div class="input-field col s3">
-                <input id="last_name" name="last_name" type="text" class="validate">
-                <label for="last_name">Last name</label>
-            </div>
-            <div class="input-field col s6 offset-s3">
-                <i class="material-icons prefix">phone</i>
-                <input id="phone" name="phone" type="number" class="validate">
-                <label for="phone">Phone</label>
-            </div>
-            <div class="input-field col s6 offset-s3">
-                <i class="material-icons prefix">email</i>
-                <input disabled id="email" name="email" type="email" class="validate">
-                <label for="email">email</label>
-            </div>
-            <div class="input-field col s6 offset-s3 center">
-              <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Save Changes</button>
-            </div>
+        <div class="input-field col s6 offset-s3 center">
+            <h4 class="grey-text">{{user.get_full_name}}</h4>
         </div>
-
-    </form>
+        <div class="input-field col s6 offset-s3 center grey-text">
+            <i class="material-icons">phone</i>
+            <span>{{user.phone_number}}</span>
+        </div>
+        <div class="input-field col s6 offset-s3 center grey-text">
+            <i class="material-icons">email</i>
+            <span>{{user.email}}</span>
+        </div>
+        <div class="input-field col s6 offset-s3 center">
+        <a class="waves-effect waves-light btn red lighten-2 {% if not user.organization %}disabled{% endif%}"  href="{% if user.organization %} {% url 'organizations:view' user.organization.id %}{% endif%}">{% if user.organization %}VIEW ORGANIZATION{% else %}NO ORGANIZATION SET{% endif%}</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
