@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.template.response import TemplateResponse
@@ -38,11 +39,18 @@ class InviteClient(LoginRequiredMixin, TemplateView):
     def post(self, request):
         data = request.POST
         form = ClientForm(data=data)
-        if form.is_valid():
-            form.cleaned_data['created_by'] = request.user
-            Clients.objects.create(**form.cleaned_data)
-            return TemplateResponse(request, self.template_name, context={'form': ClientForm})
-        return TemplateResponse(request, self.template_name, context={'form': form})
+        if not form.is_valid():
+            return TemplateResponse(request, self.template_name, context={'form': form})
+
+        invitee = get_user_model().objects.get(email=form.cleaned_data['email'])
+        if ClientRequests.objects.filter(user=invitee,invited_by=request.user, status=ClientRequests.ACCEPTED).exists():
+            form.add_error(None, "You are already a friend")
+            return TemplateResponse(request, self.template_name, context={'form': form})
+        if ClientRequests.objects.filter(user=invitee,invited_by=request.user, status=ClientRequests.NOT_ACTED).exists():
+            form.add_error(None, "You request is already pending")
+            return TemplateResponse(request, self.template_name, context={'form': form})
+        ClientRequests.objects.create(user=invitee,invited_by=request.user)
+        return TemplateResponse(request, self.template_name, context={'form': ClientForm})
 
 
 class ViewClient(LoginRequiredMixin, TemplateView):
