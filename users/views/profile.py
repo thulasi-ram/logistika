@@ -44,10 +44,11 @@ class ProfileSerializer(serializers.Serializer):
 
 class ProfileEditForm(forms.Form):
     profile_image = forms.ImageField(required=False)
+    username = forms.CharField(required=True)
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
     phone = forms.CharField(required=False)
-    email = forms.EmailField(disabled=True)
+    email = forms.EmailField(disabled=True,required=False)
 
 
 class ProfileView(TemplateView):
@@ -77,6 +78,7 @@ class ProfileEdit(LoginRequiredMixin, TemplateView):
         form = ProfileEditForm(request.POST, request.FILES)
         if form.is_valid():
             user = request.user
+            user.username = form.cleaned_data['username']
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.phone_number = form.cleaned_data['phone']

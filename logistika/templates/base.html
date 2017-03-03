@@ -133,7 +133,7 @@
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
                 <li>
-                    <a class="collapsible-header" href="{% url 'notifications:feed' %}">Notifications<i class="material-icons">notifications</i></a>
+                    <a class="collapsible-header" href="{% url 'notifications:feed' %}">Notifications<i class="material-icons">notifications</i>{% if request.user.get_unread_notif_count%}<span class="new red badge">{{request.user.get_unread_notif_count}}</span>{% endif %}</a>
                 </li>
             </ul>
         </li>

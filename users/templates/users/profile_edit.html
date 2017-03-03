@@ -24,6 +24,12 @@
             </div>
         </div>
         <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <i class="material-icons prefix">verified_user</i>
+                {{ form.username }}
+                {{ form.username.label_tag }}
+                {{ form.username.errors }}
+            </div>
             <div class="input-field col s3 offset-s3">
                 <i class="material-icons prefix">account_circle</i>
                 {{ form.first_name }}

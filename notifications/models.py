@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from djutil.models import TimeStampedModel
@@ -29,13 +30,14 @@ class Notifications(TimeStampedModel, CRUDPermissions):
     type = models.CharField(choices=TYPE_CHOICES, max_length=100)
     reference_id = models.CharField(max_length=100)
     message = models.CharField(max_length=100)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='notifications')
     status = models.PositiveIntegerField(choices=STATUS_CHOICES, default=0)
 
     def get_message(self):
         try:
-            referred_obj = self.get_referred_obj()
-            return " {message} at {created_at:%Y-%m-%d %H:%M}".format(message=self.message, created_at=referred_obj.modified_at)
+            # TODO: Should we display time notif is created or the reference obj modified date in notifs
+            # referred_obj = self.get_referred_obj()
+            return self.message
         except Exception as e:
             print e
 

@@ -25,7 +25,7 @@
     {% for notif in notifs %}
     <div class="card-panel white">
         <span class="teal-text text-darken-2">
-            <a href="{{notif.get_referred_obj.get_view_url}}">{{notif.type|title}}</a> {{notif.get_message}}</span>
+            <a href="{{notif.get_referred_obj.get_view_url}}">{{notif.type|title}}</a> {{notif.get_message}}<span class="new grey badge" data-badge-caption="">{{notif.created_at}}</span></span>
     </div>
     {% endfor %}
 </div>

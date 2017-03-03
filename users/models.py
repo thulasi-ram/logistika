@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import hashlib
 import random
+from datetime import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -73,7 +74,8 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions
         return {'phone': self.phone_number,
                 'first_name': self.first_name,
                 'last_name': self.last_name,
-                'email': self.email}
+                'email': self.email,
+                'username': self.username}
 
     def get_profile_image_url(self):
         try:
@@ -82,7 +84,12 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions
             return ''
 
     def get_view_url(self):
+        # TODO: Try to generate this by reversing profile
         return "/{user_name}".format(user_name=self.username)
+
+    def get_unread_notif_count(self):
+        # TODO: Instead of 0 in status use Notifications.UNREAD Didn't do it because of circular import
+        self.notifications.filter(status=0).count()
 
     @property
     def is_admin(self):
@@ -98,3 +105,4 @@ class Profile(TimeStampedModel, CRUDPermissions):
     city = models.CharField(max_length=100, default='', blank=True)
     country = models.CharField(max_length=100, default='', blank=True)
     organization = models.CharField(max_length=100, default='', blank=True)
+    last_read_notif_time = models.DateTimeField(default=datetime.now)
