@@ -16,6 +16,7 @@ from users.views.user_manager import CustomUserManager
 
 
 class Roles(TimeStampedModel, CRUDPermissions):
+    ADMIN = 1
     role_name = models.CharField(max_length=100)
     role_code = models.CharField(max_length=100)
 
@@ -79,6 +80,10 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions
             return self.profile.photo
         except:
             return ''
+
+    def get_view_url(self):
+        return "/{user_name}".format(user_name=self.username)
+
     @property
     def is_admin(self):
         return self.is_staff

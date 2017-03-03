@@ -25,22 +25,23 @@
                 {% if request.user == client.invited_by %}
                 <div class="card-image">
                     <img src="{% static client.user.get_profile_image_url %}">
-                    <a href="{% url 'profile' client.user.username %}" class="btn-large btn-floating halfway-fab waves-effect waves-light red tooltipped" data-tooltip="View Profile"><i class="material-icons">tag_faces</i></a>
                 </div>
                 <div class="card-content">
-                    <span class="card-title grey-text">{{client.user.get_full_name}}</span>
+                    <span class="card-title grey-text"><a href="{% url 'profile' client.user.username %}" class="blue-text">{{client.user.get_full_name}}</a></span>
                 </div>
                 <div class="card-action">
-                    <a href="{% url 'organizations:view' client.user.organization.id %}" class="blue-text">VIEW
-                        ORGANIZATION</a>
+                    <a href="{% url 'organizations:view' client.user.organization.id %}" class="blue-text">VIEW ORGANIZATION</a>
                 </div>
                 {% elif request.user == client.user %}
-                <div class="card-image">
+               <div class="card-image">
                     <img src="{% static client.invited_by.get_profile_image_url %}">
-                    <span class="card-title blue-text">{{client.invited_by.get_full_name}}</span>
+                </div>
+                <div class="card-content">
+                    <span class="card-title grey-text"><a href="{% url 'profile' client.user.username %}" class="blue-text">{{client.invited_by.get_full_name}}</a></span>
                 </div>
                 <div class="card-action">
-                    <a href="{% url 'profile' client.invited_by.username %}" class="blue-text">View Details</a>
+                    <a href="{% url 'organizations:view' client.invited_by.organization.id %}" class="blue-text">VIEW
+                        ORGANIZATION</a>
                 </div>
                 {% endif %}
             </div>

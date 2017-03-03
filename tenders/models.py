@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.urls import reverse
+
 from logistika.views.model_crud_permissions import CRUDPermissions
 from djutil.models import TimeStampedModel
 
@@ -14,4 +16,4 @@ class Tenders(TimeStampedModel, CRUDPermissions):
     is_active = models.BooleanField(default=True)
 
     def get_view_url(self):
-        return "/{app_name}/{id}".format(app_name=self.__module__.split('.')[0], id=self.id)
+        return reverse('tenders:view', kwargs={'tender_id':self.id})

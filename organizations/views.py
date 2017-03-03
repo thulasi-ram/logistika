@@ -1,13 +1,9 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
-from django.shortcuts import render
-
-# Create your views here.
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
-from rest_framework import serializers
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
@@ -22,7 +18,8 @@ class OrganizationView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         try:
             org = Organization.objects.get(id=kwargs['org_name'])
-            return TemplateResponse(request, self.template_name, {'org': org})
+            users = get_user_model().objects.filter(organization=org)
+            return TemplateResponse(request, self.template_name, {'org': org, 'users':users})
         except Organization.DoesNotExist:
             raise Http404('Organization does not exist.')
         except KeyError:
@@ -37,14 +34,14 @@ class OrganizationList(LoginRequiredMixin, APIView):
         return Response(data=data, status=status.HTTP_200_OK)
 
 
-class OnboardRequest(forms.ModelForm):
+class OnboardRequestForm(forms.ModelForm):
     class Meta:
         model = OrganizationOnboard
         fields = ['telephone', 'address']
 
     def save(self, user):
         self.instance.created_by = user
-        super(OnboardRequest, self).save()
+        super(OnboardRequestForm, self).save()
 
     def clean(self):
         try:
@@ -57,7 +54,7 @@ class OrganizationOnboardRequest(LoginRequiredMixin, APIView):
 
     def post(self, request):
         data = request.POST
-        form = OnboardRequest(data=data)
+        form = OnboardRequestForm(data=data)
         if form.is_valid():
             form.save(request.user)
             return Response(data="Your request has been captured", status=status.HTTP_200_OK)

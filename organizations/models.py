@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from djutil.models import TimeStampedModel
 
 from logistika.views.model_crud_permissions import CRUDPermissions
@@ -21,6 +22,9 @@ class Organization(TimeStampedModel, CRUDPermissions):
     legal_address = models.ForeignKey(Address, null=True, related_name='legal_address')
     billing_address = models.ForeignKey(Address, null=True, related_name='billing_address')
     is_active = models.BooleanField(default=True)
+
+    def get_view_url(self):
+        return reverse('organizations:view', kwargs={'org_name':self.id})
 
 
 class OrganizationOnboard(TimeStampedModel, CRUDPermissions):
