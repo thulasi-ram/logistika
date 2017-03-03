@@ -6,39 +6,39 @@
 {% endblock %}
 {% block content %}
 <div class="parallax-container">
-        <div class="slider">
-            <ul class="slides">
-                <li>
-                    <img src="http://lorempixel.com/580/250/nature/4">
-                    <div class="caption center-align">
-                        <h3>Welcome to Logistika!</h3>
-                        <h5 class="light grey-text text-lighten-3">Get things done with ease.</h5>
-                        {% if request.user.is_authenticated %}
-                        <a class="waves-effect waves-light btn" href="#">Get Started</a>
-                        {% else %}
-                        <a class="waves-effect waves-light btn" href="#login_signup_popup">Login/Signup</a>
-                        {% endif %}
-                    </div>
-                </li>
-                <li>
-                    <img src="http://lorempixel.com/580/250/nature/2">
-                    <div class="caption left-align">
-                        <h3>Browse all the tenders</h3>
-                        <h5 class="light grey-text text-lighten-3">Start with popular clients by demand</h5>
-                        <a class="waves-effect waves-light btn" href="/tenders">Browse tenders</a>
-                    </div>
-                </li>
-                <li>
-                    <img src="http://lorempixel.com/580/250/nature/3">
-                    <div class="caption right-align">
-                        <h3>Manage your clients!</h3>
-                        <h5 class="light grey-text text-lighten-3">All with built in support for lead management.</h5>
-                    </div>
-                </li>
+    <div class="slider">
+        <ul class="slides">
+            <li>
+                <img src="http://lorempixel.com/580/250/nature/4">
+                <div class="caption center-align">
+                    <h3>Welcome to Logistika!</h3>
+                    <h5 class="light grey-text text-lighten-3">Get things done with ease.</h5>
+                    {% if request.user.is_authenticated %}
+                    <a class="waves-effect waves-light btn" href="#">Get Started</a>
+                    {% else %}
+                    <a class="waves-effect waves-light btn" href="#login_signup_popup">Login/Signup</a>
+                    {% endif %}
+                </div>
+            </li>
+            <li>
+                <img src="http://lorempixel.com/580/250/nature/2">
+                <div class="caption left-align">
+                    <h3>Browse all the tenders</h3>
+                    <h5 class="light grey-text text-lighten-3">Start with popular clients by demand</h5>
+                    <a class="waves-effect waves-light btn" href="/tenders">Browse tenders</a>
+                </div>
+            </li>
+            <li>
+                <img src="http://lorempixel.com/580/250/nature/3">
+                <div class="caption right-align">
+                    <h3>Manage your clients!</h3>
+                    <h5 class="light grey-text text-lighten-3">All with built in support for lead management.</h5>
+                </div>
+            </li>
 
-            </ul>
-        </div>
-        <div class="parallax"></div>
+        </ul>
+    </div>
+    <div class="parallax"></div>
 </div>
 <div class="container section white flow-text">{% lorem 3 p%}</div>
 <div class="parallax-container">
@@ -49,4 +49,38 @@
     <div class="parallax"><img src="{% static 'images/parallax1.jpg' %}"></div>
 </div>
 <div class="container section white flow-text">{% lorem 3 p%}</div>
+{% endblock %}
+{% block footer %}
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l3 s12">
+            </div>
+            <div class="col l4 s12">
+                <h5 class="white-text">WHY LOGISTIKA</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">What we do</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Terms and Conditions</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Rating</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Our Promise!</a></li>
+                </ul>
+            </div>
+            <div class="col l4 s12">
+                <h5 class="white-text">ABOUT US</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">About Us</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Team</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="center">
+                © 2017 Logistika. All rights reserved.
+            </div>
+        </div>
+    </div>
+</footer>
 {% endblock %}
