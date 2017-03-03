@@ -9,30 +9,31 @@
     <div class="slider">
         <ul class="slides">
             <li>
-                <img src="http://lorempixel.com/580/250/nature/4">
+                <img src="{% static 'images/slider_1.jpg'%}">
                 <div class="caption center-align">
                     <h3>Welcome to Logistika!</h3>
                     <h5 class="light grey-text text-lighten-3">Get things done with ease.</h5>
                     {% if request.user.is_authenticated %}
-                    <a class="waves-effect waves-light btn" href="#">Get Started</a>
+                    <a class="waves-effect waves-light btn white blue-text text-darken-2" href="#">Get Started</a>
                     {% else %}
-                    <a class="waves-effect waves-light btn" href="#login_signup_popup">Login/Signup</a>
+                    <a class="waves-effect waves-light btn white blue-text text-darken-2" href="#login_signup_popup">Login/Signup</a>
                     {% endif %}
                 </div>
             </li>
             <li>
-                <img src="http://lorempixel.com/580/250/nature/2">
+                <img src="{% static 'images/slider_2.jpg'%}">
                 <div class="caption left-align">
                     <h3>Browse all the tenders</h3>
                     <h5 class="light grey-text text-lighten-3">Start with popular clients by demand</h5>
-                    <a class="waves-effect waves-light btn" href="/tenders">Browse tenders</a>
+                    <a class="waves-effect waves-light btn white blue-text text-darken-2" href="/tenders">Browse tenders</a>
                 </div>
             </li>
             <li>
-                <img src="http://lorempixel.com/580/250/nature/3">
+                <img src="{% static 'images/slider_3.jpg'%}">
                 <div class="caption right-align">
                     <h3>Manage your clients!</h3>
                     <h5 class="light grey-text text-lighten-3">All with built in support for lead management.</h5>
+                    <a class="waves-effect waves-light btn white blue-text text-darken-2" href="/clients">Find clients</a>
                 </div>
             </li>
 
@@ -40,18 +41,52 @@
     </div>
     <div class="parallax"></div>
 </div>
-<div class="container section white flow-text">{% lorem 3 p%}</div>
+<div class="container section white">
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="icon-block">
+                <h2 class="center blue-text"><i class="material-icons">flash_on</i></h2>
+                <h5 class="center blue-text">Speeds up development</h5>
+
+                <p class="light">We do most of the heavy lifting for you to provide a default interface that incorporate
+                    your actions seamlessly. Additionally, we provide a smoother experience for you.</p>
+            </div>
+        </div>
+
+        <div class="col s12 m4">
+            <div class="icon-block">
+                <h2 class="center blue-text"><i class="material-icons">group</i></h2>
+                <h5 class="center blue-text">User Experience Focused</h5>
+                <p class="light">We provide many features so that you can concentrate on things that matter.
+                    Additionally, a single underlying responsive system across all platforms allow for a more unified
+                    user experience.</p>
+            </div>
+        </div>
+
+        <div class="col s12 m4">
+            <div class="icon-block">
+                <h2 class="center blue-text"><i class="material-icons">settings</i></h2>
+                <h5 class="center blue-text">Easy to work with</h5>
+
+                <p class="light">We have provided detailed documentation as well as a guide to help new users get
+                    started. We are also always open to feedback and can answer any questions a user may have about
+                    Logistika.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div class="parallax-container">
-    <div class="parallax"><img src="{% static 'images/parallax2.jpg' %}"></div>
+    <div class="parallax"><img src="{% static 'images/parallax_1.jpg' %}"></div>
 </div>
 <div class="container section white flow-text">{% lorem 3 p%}</div>
 <div class="parallax-container">
-    <div class="parallax"><img src="{% static 'images/parallax1.jpg' %}"></div>
+    <div class="parallax"><img src="{% static 'images/parallax_2.jpg' %}"></div>
 </div>
 <div class="container section white flow-text">{% lorem 3 p%}</div>
 {% endblock %}
 {% block footer %}
-<footer class="page-footer">
+<footer class="page-footer blue darken-2">
     <div class="container">
         <div class="row">
             <div class="col l3 s12">

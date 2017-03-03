@@ -35,3 +35,23 @@ main {
 .tabs .indicator {
     background-color: white;
 }
+
+.slider ul{
+list-style-type: square;
+}
+
+.slider .indicators .indicator-item{
+border-radius:0;
+}
+
+.slider .indicators .indicator-item.active {
+background-color:#1976d2;
+}
+
+.icon-block{
+padding: 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size: inherit;
+}

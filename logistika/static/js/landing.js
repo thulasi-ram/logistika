@@ -1,4 +1,4 @@
 $(document).ready(function() {
     $('.parallax').parallax();
-    $('.slider').slider({height: 1000});
+    $('.slider').slider({height: 450});
 });
