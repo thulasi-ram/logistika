@@ -10,7 +10,7 @@
         <ul class="slides">
             <li>
                 <img src="{% static 'images/slider_1.jpg'%}">
-                <div class="caption center-align">
+                <div class="caption center-align" style="top:25%;">
                     <h3>Welcome to Logistika!</h3>
                     <h5 class="light grey-text text-lighten-3">Get things done with ease.</h5>
                     {% if request.user.is_authenticated %}
@@ -22,7 +22,7 @@
             </li>
             <li>
                 <img src="{% static 'images/slider_2.jpg'%}">
-                <div class="caption left-align">
+                <div class="caption left-align" style="top:25%;">
                     <h3>Browse all the tenders</h3>
                     <h5 class="light grey-text text-lighten-3">Start with popular clients by demand</h5>
                     <a class="waves-effect waves-light btn white blue-text text-darken-2" href="/tenders">Browse
@@ -31,7 +31,7 @@
             </li>
             <li>
                 <img src="{% static 'images/slider_3.jpg'%}">
-                <div class="caption right-align">
+                <div class="caption right-align" style="top:25%;">
                     <h3>Manage your clients!</h3>
                     <h5 class="light grey-text text-lighten-3">All with built in support for lead management.</h5>
                     <a class="waves-effect waves-light btn white blue-text text-darken-2" href="/clients">Find

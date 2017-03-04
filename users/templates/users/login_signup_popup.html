@@ -8,6 +8,7 @@
 <div id="login_pop" style="width:96%; padding-left:3%;">
     <form id="login" action="{% url 'users:login' %}" method="post">
         {%csrf_token%}
+        <br>
         <div class="row">
             <div class="input-field col s12">
                 <input id="login_email" name="email" type="email" class="validate" required>
@@ -45,7 +46,7 @@
             <div class="input-field col s12">
                 <i class="material-icons prefix">email</i>
                 <input id="signup_email" name="email" type="email" class="validate" required>
-                <label for="signup_email">Email *</label>
+                <label for="signup_email">Email (required)</label>
             </div>
             <div class="input-field col s12">
                 <i class="material-icons prefix">phone</i>
@@ -55,7 +56,7 @@
             <div class="input-field col s11">
                 <i class="material-icons prefix">keyboard</i>
                 <input type="password" name="password" id="signup_password" required/>
-                <label for="signup_password">Password<span>(required)</span></label>
+                <label for="signup_password">Password (required)</label>
             </div>
             <div class="input-field col s1" style="padding-top:1em;">
                 <i class="material-icons" id="remove_red_eye">remove_red_eye</i>
