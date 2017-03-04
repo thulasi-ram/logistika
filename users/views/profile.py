@@ -2,6 +2,7 @@ from string import Template
 
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
+from django.core.exceptions import ValidationError
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -42,13 +43,24 @@ class ProfileSerializer(serializers.Serializer):
                                      })
 
 
-class ProfileEditForm(forms.Form):
+class ProfileEditForm(forms.ModelForm):
     profile_image = forms.ImageField(required=False)
     username = forms.CharField(required=True)
-    first_name = forms.CharField(required=False)
-    last_name = forms.CharField(required=False)
-    phone = forms.CharField(required=False)
+    # first_name = forms.CharField(required=False)
+    # last_name = forms.CharField(required=False)
+    # phone = forms.CharField(required=False)
     email = forms.EmailField(disabled=True,required=False)
+
+    def clean(self):
+        cleaned_data = super(ProfileEditForm, self).clean()
+        username = cleaned_data['username']
+        if not self.instance.username==username :
+            if get_user_model().objects.filter(username=username).exists():
+                raise ValidationError({'username':'User name already taken.'})
+
+    class Meta:
+        model = get_user_model()
+        fields= ('first_name', 'last_name', 'phone_number')
 
 
 class ProfileView(TemplateView):
@@ -81,7 +93,7 @@ class ProfileEdit(LoginRequiredMixin, TemplateView):
             user.username = form.cleaned_data['username']
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
-            user.phone_number = form.cleaned_data['phone']
+            user.phone_number = form.cleaned_data['phone_number']
             user.save()
             if form.cleaned_data.get('profile_image'):
                 user.profile.photo = form.cleaned_data['profile_image']

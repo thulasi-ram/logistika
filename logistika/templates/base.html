@@ -227,13 +227,13 @@
                         </div>
                     </div>
                 </form>
-                <h4 class="blue-text text-darken-2 center">(or)</h4>
+                <h6 class="blue-text text-darken-2 center">(or)</h6>
 
                 <form class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">email</i>
-                            <input id="contactus_subject" type="email" class="validate">
+                            <input id="contactus_subject" type="email" class="validate" value="{{request.user.email}}">
                             <label for="contactus_subject">Your Email</label>
                         </div>
                         <div class="input-field col s12">

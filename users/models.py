@@ -101,8 +101,6 @@ class Profile(TimeStampedModel, CRUDPermissions):
     photo = models.ImageField(upload_to='profile_images/', default='profile_images/account.png')
     website = models.URLField(default='', blank=True)
     bio = models.TextField(default='', blank=True)
-    phone = models.CharField(max_length=20, blank=True, default='')
     city = models.CharField(max_length=100, default='', blank=True)
     country = models.CharField(max_length=100, default='', blank=True)
-    organization = models.CharField(max_length=100, default='', blank=True)
     last_read_notif_time = models.DateTimeField(default=datetime.now)

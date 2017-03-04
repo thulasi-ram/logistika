@@ -15,11 +15,11 @@ from users.models import User
 
 class SignUpValidator(serializers.Serializer):
     first_name = serializers.CharField(max_length=100,
-                                 required=False,
-                                 error_messages={
-                                     'required': 'Name is required',
-                                     'blank': 'Name cannot be blank',
-                                 })
+                                       required=False,
+                                       error_messages={
+                                           'required': 'Name is required',
+                                           'blank': 'Name cannot be blank',
+                                       })
     last_name = serializers.CharField(max_length=100,
                                       required=False,
                                       error_messages={
@@ -32,21 +32,28 @@ class SignUpValidator(serializers.Serializer):
                                          'blank': 'Password cannot be blank',
                                      })
     phone = serializers.IntegerField(required=False,
-                                      min_value=(10 ** 9),
-                                      max_value=(10 ** 10 - 1),
-                                      error_messages={
-                                          'required': 'Phone number is required',
-                                          'blank': 'Phone number cannot be blank',
-                                          'min_value': 'Invalid phone number',
-                                          'max_value': 'Invalid phone number',
-                                          'invalid': 'Invalid phone number'
-                                      })
+                                     min_value=(10 ** 9),
+                                     max_value=(10 ** 10 - 1),
+                                     error_messages={
+                                         'required': 'Phone number is required',
+                                         'blank': 'Phone number cannot be blank',
+                                         'min_value': 'Invalid phone number',
+                                         'max_value': 'Invalid phone number',
+                                         'invalid': 'Invalid phone number'
+                                     })
     email = serializers.EmailField(required=True,
                                    error_messages={
                                        'required': 'Email is required',
                                        'invalid': 'Email in invalid',
                                        'blank': 'Email cannot be blank',
                                    })
+
+    def save(self, **kwargs):
+        kwargs = {'first_name': self.cleaned_data.get('first_name', ''),
+                  'last_name': self.cleaned_data.get('last_name', ''),
+                  'phone_number': self.cleaned_data.get('phone', '')}
+        user = User.objects.create_user(self.cleaned_data['email'], self.cleaned_data['password'], **kwargs)
+        return user
 
 
 class SignUp(TemplateView, APIView):
@@ -67,15 +74,14 @@ class SignUp(TemplateView, APIView):
             serializer = self.serializer(data=data)
             if not serializer.is_valid():
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            kwargs = {'first_name': serializer.data.get('first_name', ''),
-                      'last_name': serializer.data.get('last_name', ''),
-                      'phone_number': serializer.data.get('phone', '')}
-            user = User.objects.create_user(serializer.data['email'], serializer.data['password'], **kwargs)
+            user = serializer.save()
             if user:
+                user.profile.create()
                 user.backend = settings.AUTHENTICATION_BACKENDS
                 login(request, user)
                 return Response(data={'redirect': reverse('landing')}, status=status.HTTP_200_OK)
-        except IntegrityError:
-                return Response(data='User with the email already exists', status=status.HTTP_409_CONFLICT)
+        except IntegrityError as e:
+            return Response(data='User with the email already exists', status=status.HTTP_409_CONFLICT)
         except Exception as e:
-            return Response(data='Something went wrong', status=status.HTTP_500_INTERNAL_SERVER_ERROR, headers={'dev_msg': e.message})
+            return Response(data='Something went wrong', status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            headers={'dev_msg': e.message})

@@ -23,35 +23,36 @@
                 <input type="file" id="profile_image" name='profile_image' style="visibility:hidden;">
             </div>
         </div>
+        <div class="center red-text"> {{ form.non_field_errors }}</div>
         <div class="row">
-            <div class="input-field col s6 offset-s3">
+            <div class="input-field col s6 offset-s3" {% if form.username.errors %}style="margin-bottom:0px !important;"{% endif %}>
                 <i class="material-icons prefix">verified_user</i>
                 {{ form.username }}
                 {{ form.username.label_tag }}
-                {{ form.username.errors }}
+                <div class="center red-text"> {{ form.username.errors }}</div>
             </div>
             <div class="input-field col s3 offset-s3">
                 <i class="material-icons prefix">account_circle</i>
                 {{ form.first_name }}
                 {{ form.first_name.label_tag }}
-                {{ form.first_name.errors }}
+                <div class="center red-text"> {{ form.first_name.errors }}</div>
             </div>
             <div class="input-field col s3">
                 {{ form.last_name }}
                 {{ form.last_name.label_tag }}
-                {{ form.last_name.errors }}
+                <div class="center red-text"> {{ form.last_name.errors }}</div>
             </div>
             <div class="input-field col s6 offset-s3">
                 <i class="material-icons prefix">phone</i>
-                {{ form.phone }}
-                {{ form.phone.label_tag }}
-                {{ form.phone.errors }}
+                {{ form.phone_number }}
+                {{ form.phone_number.label_tag }}
+                <div class="center red-text"> {{ form.phone_number.errors }}</div>
             </div>
             <div class="input-field col s6 offset-s3">
                 <i class="material-icons prefix">email</i>
                 {{ form.email }}
                 {{ form.email.label_tag }}
-                {{ form.email.errors }}
+                <div class="center red-text"> {{ form.email.errors }}</div>
             </div>
             <div class="input-field col s6 offset-s3 center">
                 <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Save Changes</button>

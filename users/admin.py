@@ -5,19 +5,19 @@ from django.template import loader
 
 from users.models import User, Profile, Roles
 
-
 admin.site.register(Roles)
+
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = (
-    'id', 'first_name', 'last_name', 'email', 'phone_number', 'is_superuser', 'is_staff', 'is_active', 'organization',
-    'role')
+    list_display = ('id', 'first_name', 'last_name', 'email', 'phone_number', 'is_superuser',
+                    'is_staff', 'is_active', 'organization', 'role', 'username')
     search_fields = ('email',)
     ordering = ('email',)
     list_filter = ('is_superuser', 'is_staff', 'is_active')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
+        ('User Name', {'fields': ('username',)}),
         ('Personal Info', {'fields': ('first_name', 'last_name', 'phone_number')}),
         ('Permissions and Groups', {'fields': ('is_staff', 'is_active', 'is_superuser',
                                                'groups')}),

@@ -1,26 +1,41 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import UserManager
 
 
 class CustomUserManager(UserManager):
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
 
-    def _create_user(self, email, password, is_staff, is_superuser, is_active, **extra_fields):
-        """
-        Creates and saves a User with the given username, email and password.
-        """
-        if not email:
-            raise ValueError('The given email must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, is_staff=is_staff, is_superuser=is_superuser, is_active=is_active, **extra_fields)
-        user.set_password(password)
-        user.set_confirmation_key(email)
-        user.save(using=self._db)
-        return user
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
 
-    def create_superuser(self, email, password, **kwargs):
-        return self.create_user(email=email, password=password, is_staff=True, is_superuser=True, is_active=True, **kwargs)
+        username = self.generate_unique_username(email, **extra_fields)
 
-    def create_user(self, email, password, is_staff=False, is_superuser=False, is_active=True, **kwargs):
-        return self._create_user(email, password, is_staff, is_superuser, is_active, **kwargs)
+        return self._create_user(username, email, password, **extra_fields)
+
+    def create_user(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+
+        username = self.generate_unique_username(email, **extra_fields)
+        return self._create_user(username, email, password, **extra_fields)
+
+    def generate_unique_username(self, email, extra_fields):
+        first_name = extra_fields.get('first_name')
+        last_name = extra_fields.get('last_name')
+        if first_name and last_name:
+            base_username = '{first_name}{last_name}'.format(first_name=first_name, last_name=last_name)
+        else:
+            base_username = email.split('@')[0]
+        i = 0
+        while get_user_model().objects.filter(username=base_username).exists():
+            if i:
+                base_username = '{usrname}{i}'.format(usrname=base_username, i=i)
+            i += 1
+        return base_username
 
     def filter(self, **kwargs):
         if 'username' in kwargs:
@@ -33,5 +48,3 @@ class CustomUserManager(UserManager):
             kwargs['username__iexact'] = kwargs['username']
             del kwargs['username']
         return super(CustomUserManager, self).get(**kwargs)
-
-
