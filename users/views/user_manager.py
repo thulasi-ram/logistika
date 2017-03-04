@@ -23,7 +23,7 @@ class CustomUserManager(UserManager):
         username = self.generate_unique_username(email, **extra_fields)
         return self._create_user(username, email, password, **extra_fields)
 
-    def generate_unique_username(self, email, extra_fields):
+    def generate_unique_username(self, email, **extra_fields):
         first_name = extra_fields.get('first_name')
         last_name = extra_fields.get('last_name')
         if first_name and last_name:

@@ -8,11 +8,12 @@ from users.views.login import Login
 from users.views.logout import Logout
 from users.views.organization import UserOrganization
 from users.views.profile import ProfileEdit
-from users.views.signup import SignUp
+from users.views.signup import SignUp, SignupAPI
 
 urlpatterns = [
     url(r'login', Login.as_view(), name='login'),
     url(r'signup', SignUp.as_view(), name='signup'),
+    url(r'api/signup/', SignupAPI.as_view(), name='signup-api'),
     url(r'logout', Logout.as_view(), name='logout'),
     url(r'profile', ProfileEdit.as_view(), name='profile'),
     url(r'organization', UserOrganization.as_view(), name='organization'),

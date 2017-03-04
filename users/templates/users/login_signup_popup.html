@@ -26,7 +26,7 @@
 </div>
 
 <div id="signup_pop" class="col s12 container">
-    <form id="signup" action="{% url 'users:signup' %}" method="post">
+    <form id="signup" action="{% url 'users:signup-api' %}" method="post">
         {%csrf_token%}
         <div class="row">
             <div class="input-field col s6">

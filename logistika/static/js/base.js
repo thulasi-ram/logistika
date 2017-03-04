@@ -78,7 +78,14 @@ $(document).ready(function() {
                 window.location.replace(response.redirect);
             });
             request.fail(function(jqXHR, textStatus) {
+                if (jqXHR.status==403){
+                Materialize.toast("User is already logged in. Refreshing page.", 5000, 'red accent-4');
+                location.reload();
+                }
+                else{
                 Materialize.toast(jqXHR.responseText || "Form submit failed. Please check network.", 5000, 'red accent-4');
+
+                }
             });
             $('#submit_button').prop('disabled', false);
         });

@@ -49,16 +49,15 @@ class SignUpValidator(serializers.Serializer):
                                    })
 
     def save(self, **kwargs):
-        kwargs = {'first_name': self.cleaned_data.get('first_name', ''),
-                  'last_name': self.cleaned_data.get('last_name', ''),
-                  'phone_number': self.cleaned_data.get('phone', '')}
-        user = User.objects.create_user(self.cleaned_data['email'], self.cleaned_data['password'], **kwargs)
+        kwargs = {'first_name': self.validated_data.get('first_name', ''),
+                  'last_name': self.validated_data.get('last_name', ''),
+                  'phone_number': self.validated_data.get('phone', '')}
+        user = User.objects.create_user(self.validated_data['email'], self.validated_data['password'], **kwargs)
         return user
 
 
-class SignUp(TemplateView, APIView):
+class SignUp(TemplateView):
     template_name = 'users/signup.html'
-    serializer = SignUpValidator
 
     def dispatch(self, request, **kwargs):
         if request.user and request.user.is_active and request.user.is_authenticated():
@@ -67,6 +66,15 @@ class SignUp(TemplateView, APIView):
 
     def get(self, request, *args, **kwargs):
         return TemplateResponse(request, self.template_name)
+
+
+class SignupAPI(APIView):
+    serializer = SignUpValidator
+
+    def dispatch(self, request, **kwargs):
+        if request.user and request.user.is_active and request.user.is_authenticated():
+            return Response(data='{user} with the email already logged in. Please refresh.'.format(user=request.user.get_short_name()), status=status.HTTP_409_CONFLICT)
+        return super(SignupAPI, self).dispatch(request, **kwargs)
 
     def post(self, request):
         try:
