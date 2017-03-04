@@ -10,7 +10,7 @@ from users.models import Roles
 
 @receiver(tender_created)
 def tender_created(sender, instance, user, **kwargs):
-    Notifications.objects.create(type='tender', message=' has been created', user=instance.created_by)
+    Notifications.objects.create(type='tender', message=' has been created', user=instance.created_by, reference_id=instance.id)
 
 
 @receiver(tender_modified)
@@ -26,7 +26,7 @@ def tender_deleted(sender, instance, user, **kwargs):
     audit_log_users = list(instance.tendersaudit_set.values_list('user_id', flat=True))
     quotes_users = list(instance.quotes_set.values_list('created_by', flat=True))
     for usr in set(audit_log_users + quotes_users + [instance.created_by.id]):
-        Notifications.objects.create(type='tender', message=' has been deleted', user_id=usr)
+        Notifications.objects.create(type='tender', message=' has been deleted', user_id=usr, reference_id=instance.id)
 
 
 @receiver(post_save, sender=OrganizationRequests)

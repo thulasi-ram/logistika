@@ -52,8 +52,11 @@ class Notifications(TimeStampedModel, CRUDPermissions):
             return Organization
 
     def get_referred_obj(self):
-        referred_model_klass = self.get_referred_obj_factory()
-        return referred_model_klass.objects.get(id=self.reference_id)
+        try:
+            referred_model_klass = self.get_referred_obj_factory()
+            return referred_model_klass.objects.get(id=self.reference_id)
+        except:
+            return None
 
 
 
