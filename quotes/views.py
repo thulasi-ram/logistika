@@ -26,10 +26,12 @@ class QuotesFeed(LoginRequiredMixin, TemplateView):
         page = quotes.number
         return TemplateResponse(request, self.template_name, {'quotes': quotes})
 
+
 class QuotesForm(forms.ModelForm):
     class Meta:
         model = Quotes
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'amount']
+
 
 class CreateQuote(LoginRequiredMixin, TemplateView):
     template_name = 'quotes/create_quotes.html'
