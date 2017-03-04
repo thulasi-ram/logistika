@@ -178,12 +178,14 @@
     <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
     {% block scripts %}{% endblock %}
 
-    <div id="login_signup_popup" class="modal col s4 offset-s4" style="padding:0; padding-bottom:10px;">
+    <div class="row">
+    <div id="login_signup_popup" class="modal col s12 m4 offset-m4" style="padding:0; padding-bottom:10px;">
 
         <div class="modal-content" style="padding:0;">
             {% include "users/login_signup_popup.html" %}
         </div>
     </div>
+        </div>
 
     <div id="contact_us_modal" class="modal">
         <div class="modal-content">
