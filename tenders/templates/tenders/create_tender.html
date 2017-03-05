@@ -15,10 +15,20 @@
         </div>
     </nav>
     <form action="" method="post">
-        {% csrf_token %}
-        {{ form|materializecss }}
-        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn amber lighten-2">CREATE TENDER
-        </button>
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                {% csrf_token %}
+                {{ form|materializecss }}
+                <div class="input-field center">
+                    <button type="submit" id="create_tender_submit"
+                            class="waves-effect waves-light btn amber lighten-2">
+                        CREATE TENDER
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
     </form>
 </div>
 {% endblock %}

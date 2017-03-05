@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="container">
-        <nav>
+    <nav>
         <div class="nav-wrapper green lighten-2">
             <div class="col s12" style="padding-left:10px">
                 <a href="/quotes" class="breadcrumb">My Quotations</a>
@@ -15,11 +15,19 @@
         </div>
     </nav>
     <form action="" method="post">
-        {% csrf_token %}
-        {{ form|materializecss }}
-        <input type="hidden" value="{{tender}}" name="tender">
-        <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn green lighten-2">CREATE QUOTES
-        </button>
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                {% csrf_token %}
+                {{ form|materializecss }}
+                <input type="hidden" value="{{tender}}" name="tender">
+                <div class="input-field center">
+                    <button type="submit" id="create_tender_submit"
+                            class="waves-effect waves-light btn green lighten-2">CREATE QUOTES
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </form>
 </div>
 {% endblock %}

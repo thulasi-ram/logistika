@@ -3,10 +3,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.views.generic import TemplateView
 
-from clients.models import Clients, ClientRequests
+from clients.models import Clients, ClientRequests, ClientGroups
 
 
 class ClientForm(forms.Form):
@@ -93,3 +95,17 @@ class ClientRequestsView(LoginRequiredMixin, TemplateView):
             cli_req.save()
         client_reqs = ClientRequests.objects.filter(user=request.user)
         return TemplateResponse(request, self.template_name, context={'client_requests': client_reqs})
+
+
+class ClientGroupsView(LoginRequiredMixin, TemplateView):
+    template_name = 'clients/client_groups.html'
+
+    def get(self, request, *args, **kwargs):
+        client_grps = ClientGroups.objects.filter(user=request.user)
+        return TemplateResponse(request, self.template_name, context={'client_grps': client_grps})
+
+    def post(self, request):
+        data = request.POST
+        if data.get('group_name'):
+            group_name = ClientGroups.objects.get(name=data['group_name'], user=request.user)
+        return HttpResponseRedirect(reverse('clients:groups'))

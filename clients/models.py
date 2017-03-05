@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
 from logistika.views.model_crud_permissions import CRUDPermissions
 from djutil.models import TimeStampedModel
@@ -25,3 +27,11 @@ class ClientRequests(TimeStampedModel, CRUDPermissions):
 
     def is_pending(self):
         return True if self.status == self.NOT_ACTED else False
+
+class ClientGroups(TimeStampedModel, CRUDPermissions):
+    name = models.CharField(max_length=200)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+class ClientGroupsMapping(TimeStampedModel, CRUDPermissions):
+    client = models.ForeignKey(Clients)
+    group = models.ForeignKey(ClientGroups)
