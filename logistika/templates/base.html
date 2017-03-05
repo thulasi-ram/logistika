@@ -179,77 +179,81 @@
     {% block scripts %}{% endblock %}
 
     <div class="row">
-    <div id="login_signup_popup" class="modal col s12 m4 offset-m4" style="padding:0; padding-bottom:10px;">
+        <div id="login_signup_popup" class="modal col s12 m4 offset-m4" style="padding:0; padding-bottom:10px;">
 
-        <div class="modal-content" style="padding:0;">
-            {% include "users/login_signup_popup.html" %}
+            <div class="modal-content" style="padding:0;">
+                {% include "users/login_signup_popup.html" %}
+            </div>
         </div>
     </div>
-        </div>
 
-    <div id="contact_us_modal" class="modal">
-        <div class="modal-content">
-            <div class="row section">
-                <div class="col s12 m6">
-                    <ul class="collection">
-                        <li class="collection-item avatar blue-text text-darken-2">
-                            <img src="{% static 'images/raji.jpg' %}" alt="" class="circle">
-                            <span class="title">Rajashekar</span>
-                            <br>
-                            <p class="valign-wrapper"><i class="material-icons prefix">phone</i>&nbsp;0000000000<br>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col s12 m6">
-                    <ul class="collection">
-                        <li class="collection-item avatar blue-text text-darken-2">
-                            <img src="{% static 'images/tula.jpg' %}" alt="" class="circle">
-                            <span class="title">Thulasi</span>
-                            <br>
-                            <p class="valign-wrapper"><i class="material-icons prefix">phone</i>&nbsp;9840561688<br>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="divider"></div>
-            <div class="row section">
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">phone</i>
-                            <input id="callback_phone" type="tel" class="validate">
-                            <label for="callback_phone">Telephone</label>
-                        </div>
-                        <div class="center col s12">
-                            <button type="submit" id="callback_submit"
-                                    class="waves-effect waves-light btn blue darken-2">REQUEST CALLBACK
-                            </button>
-                        </div>
+    <div class="row">
+        <div id="contact_us_modal" class="modal col s12 m6 offset-m3">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <ul class="collection">
+                            <li class="collection-item avatar blue-text text-darken-2">
+                                <img src="{% static 'images/raji.jpg' %}" alt="" class="circle">
+                                <span class="title">Rajashekar</span>
+                                <br>
+                                <p class="valign-wrapper"><i class="material-icons prefix">phone</i>&nbsp;0000000000<br>
+                                </p>
+                            </li>
+                        </ul>
                     </div>
-                </form>
-                <h6 class="blue-text text-darken-2 center">(or)</h6>
+                    <div class="col s12 m6">
+                        <ul class="collection">
+                            <li class="collection-item avatar blue-text text-darken-2">
+                                <img src="{% static 'images/tula.jpg' %}" alt="" class="circle">
+                                <span class="title">Thulasi</span>
+                                <br>
+                                <p class="valign-wrapper"><i class="material-icons prefix">phone</i>&nbsp;9840561688<br>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">phone</i>
+                                <input id="callback_phone" type="tel" class="validate">
+                                <label for="callback_phone">Telephone</label>
+                            </div>
+                            <div class="center col s12">
+                                <button type="submit" id="callback_submit"
+                                        class="waves-effect waves-light btn blue darken-2">REQUEST CALLBACK
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <h6 class="blue-text text-darken-2 center">(or)</h6>
 
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">email</i>
-                            <input id="contactus_subject" type="email" class="validate" value="{{request.user.email}}">
-                            <label for="contactus_subject">Your Email</label>
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="contactus_subject" type="email" class="validate"
+                                       value="{{request.user.email}}">
+                                <label for="contactus_subject">Your Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="contactus_message" class="materialize-textarea"></textarea>
+                                <label for="contactus_message">Message</label>
+                            </div>
+                            <div class="center input-field col s12">
+                                <button type="submit" id="query_submit"
+                                        class="waves-effect waves-light btn blue darken-2">
+                                    EMAIL US
+                                </button>
+                            </div>
                         </div>
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">mode_edit</i>
-                            <textarea id="contactus_message" class="materialize-textarea"></textarea>
-                            <label for="contactus_message">Message</label>
-                        </div>
-                        <div class="center input-field col s12">
-                            <button type="submit" id="query_submit" class="waves-effect waves-light btn blue darken-2">
-                                EMAIL US
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -1,9 +1,11 @@
 $(document).ready(function() {
+    if ($(".dropdown-button").length){
     $(".dropdown-button").dropdown({
         hover: true, // Activate on hover
         belowOrigin: true, // Displays dropdown below the button
         alignment: 'right', // Displays dropdown with edge aligned to the left of button
     });
+    };
     $('.modal').modal();
     $('#hamburger-menu-button').sideNav({
         menuWidth: 250,

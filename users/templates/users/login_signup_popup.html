@@ -10,17 +10,19 @@
         {%csrf_token%}
         <br>
         <div class="row">
-            <div class="input-field col s12">
-                <input id="login_email" name="email" type="email" class="validate" required>
-                <label for="login_email">Email</label>
-            </div>
-            <div class="input-field col s12">
-                <input type="password" name="password" id="login_password" required/>
-                <label for="login_password">Password</label>
+            <div class="col s12">
+                <div class="input-field">
+                    <input id="login_email" name="email" type="email" class="validate" required>
+                    <label for="login_email">Email</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" name="password" id="login_password" required/>
+                    <label for="login_password">Password</label>
+                </div>
             </div>
         </div>
         <div class="row center">
-            <div class="input-field col s12">
+            <div class="input-field">
                 <button type="submit" id="login_submit" class="waves-effect waves-light btn">Login
                 </button>
                 <a href="{% url 'users:password_reset' %}"

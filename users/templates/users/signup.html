@@ -5,52 +5,55 @@
 <script type="text/javascript" src="{% static 'js/login.js' %}"></script>
 {% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col s6 offset-s3">
-        <nav>
-            <div class="nav-wrapper teal lighten-2">
-                <div class="col s12" style="padding-left:10px">
-                    <a href="/" class="breadcrumb">Home</a>
-                    <a href="/users/signup" class="breadcrumb">Signup</a>
+<div class="container">
+    <nav>
+        <div class="nav-wrapper teal lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/" class="breadcrumb">Home</a>
+                <a href="/users/signup" class="breadcrumb">Signup</a>
+            </div>
+        </div>
+    </nav>
+    <form id="myform" action="" method="post">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                {%csrf_token%}
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="first_name" name="first_name" type="text" class="validate">
+                    <label for="first_name">First name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="last_name" name="last_name" type="text" class="validate">
+                    <label for="last_name">Last name</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons prefix">email</i>
+                    <input id="email" name="email" type="email" class="validate" required>
+                    <label for="email">Email *</label>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons prefix">phone</i>
+                    <input id="phone" name="phone" type="number" class="validate">
+                    <label for="phone">Phone</label>
+                </div>
+                <div class="input-field col s11">
+                    <i class="material-icons prefix">keyboard</i>
+                    <input type="password" name="password" id="password" required/>
+                    <label for="password">Password *</label>
+                </div>
+                <div class="input-field col s1">
+                    <i class="right material-icons" id="remove_red_eye">remove_red_eye</i>
+                </div>
+                <div class="input-field center">
+                    <button type="submit" id="submit_button" class="waves-effect waves-light btn teal">
+                        Register
+                    </button>
+                    <a href="{% url 'users:login' %}"
+                       class="waves-effect waves-light btn teal">Login</a>
                 </div>
             </div>
-        </nav>
-        <form id="myform" action="" method="post">
-            {%csrf_token%}
-            <div class="input-field col s6">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="first_name" name="first_name" type="text" class="validate">
-                <label for="first_name">First name</label>
-            </div>
-            <div class="input-field col s6">
-                <input id="last_name" name="last_name" type="text" class="validate">
-                <label for="last_name">Last name</label>
-            </div>
-            <div class="input-field col s12">
-                <i class="material-icons prefix">email</i>
-                <input id="email" name="email" type="email" class="validate" required>
-                <label for="email">Email *</label>
-            </div>
-            <div class="input-field col s12">
-                <i class="material-icons prefix">phone</i>
-                <input id="phone" name="phone" type="number" class="validate">
-                <label for="phone">Phone</label>
-            </div>
-            <div class="input-field col s12">
-                <i class="material-icons prefix">keyboard</i>
-                <input type="password" name="password" id="password" required/>
-
-                <label for="password">Password *</label>
-                <i class="right material-icons" id="remove_red_eye">remove_red_eye</i>
-            </div>
-            <div class="input-field col s12">
-                <button type="submit" id="submit_button" class="waves-effect waves-light btn teal">
-                    Register
-                </button>
-                <a href="{% url 'users:login' %}"
-                   class="waves-effect waves-light btn teal">Login</a>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 {% endblock %}

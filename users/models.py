@@ -71,7 +71,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions
         return {'profile_url': self.get_profile_image_url()}
 
     def get_profile_initial(self):
-        return {'phone': self.phone_number,
+        return {'phone_number': self.phone_number,
                 'first_name': self.first_name,
                 'last_name': self.last_name,
                 'email': self.email,

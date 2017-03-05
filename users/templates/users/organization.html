@@ -13,71 +13,79 @@
             </div>
         </div>
     </nav>
-    {% if not org_req or org_req.is_rejected %}
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-            <div class="input-field col s8 offset-s2">
+
+    <div class="row">
+        <div class="input-field col s12 m8 offset-m2">
+            {% if not org_req or org_req.is_rejected %}
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field">
                         <i class="material-icons prefix">business</i>
                         <input type="text" id="organization" name="organization" class="autocomplete">
                         <label for="organization">Find your Organization</label>
                     </div>
                 </div>
-            </div>
-            <div class="input-field col s8 offset-s2 center">
-                <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Set Organization</button>
-            </div>
-        </div>
-    </form>
-    <div class="row">
-        <div class="col s8 offset-s2 center">
-            <span><h4 class="red-text text-lighten-3"><u>Did not find your organization?</u></h4></span>
-            <p> The onboarding process of an organization might take a few initial steps as the admin for the
-                organization
-                has to be configured. Once done the admin can board all the others in that particular organization
-                and
-                over see
-                the operations. Our onboarding expert will call you to request you an appointment and visit you
-                personally once you fill out the below
-                form.</p>
-        </div>
-    </div>
-    <form action="{% url 'organizations:onboard' %}" method="post" id="onboard_req_form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-            <div class="input-field col s8 offset-s2">
-                <i class="material-icons prefix">phone</i>
-                <input id="telephone" name="telephone" type="tel" class="validate">
-                <label for="telephone">Telephone</label>
-            </div>
-            <div class="input-field col s8 offset-s2">
-                <i class="material-icons prefix">mode_edit</i>
-                <textarea id="address" name="address" class="materialize-textarea"></textarea>
-                <label for="address">Your address</label>
-            </div>
-            <div class="input-field col s8 offset-s2 center">
-                <button type="submit" id="onboard_req_submit"value="Submit" class="waves-effect waves-light btn red lighten-2">Request
-                    Onboarding
-                </button>
-            </div>
-        </div>
-    </form>
-    {% else %}
+                <div class="input-field center">
+                    <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Set Organization
+                    </button>
+                </div>
 
-    <div class="section">
-        <div class="input-field col s12 center">
-            <i class="material-icons medium lime-text text-darken-2">business</i>
-            <h2 class="lime-text text-darken-2">{{org_req.org.name}}</h2>
-            {% if org_req.is_pending %}
-            <p class="new lime darken-4 badge white-text container" data-badge-caption="">Your request is pending.</p>
+            </form>
+            <br>
+            <div class="row">
+                <div class="center">
+                    <h4 class="red-text text-lighten-3">Did not find your organization?</h4>
+                    <p> The onboarding process of an organization might take a few initial steps as the admin for the
+                        organization
+                        has to be configured. Once done the admin can board all the others in that particular
+                        organization
+                        and
+                        over see
+                        the operations. Our onboarding expert will call you to request you an appointment and visit you
+                        personally once you fill out the below
+                        form.</p>
+                </div>
+            </div>
+            <form action="{% url 'organizations:onboard' %}" method="post" id="onboard_req_form"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field">
+                        <i class="material-icons prefix">phone</i>
+                        <input id="telephone" name="telephone" type="tel" class="validate">
+                        <label for="telephone">Telephone</label>
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="address" name="address" class="materialize-textarea"></textarea>
+                        <label for="address">Your address</label>
+                    </div>
+                    <div class="input-field center">
+                        <button type="submit" id="onboard_req_submit" value="Submit"
+                                class="waves-effect waves-light btn red lighten-2">Request
+                            Onboarding
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+
+            <div class="input-field center">
+                <i class="material-icons medium lime-text text-darken-2">business</i>
+                <h2 class="lime-text text-darken-2">{{org_req.org.name}}</h2>
+                {% if org_req.is_pending %}
+                <p class="new lime darken-4 badge white-text container" data-badge-caption="">Your request is
+                    pending.</p>
+                {% endif %}
+                <h5 class="grey-text text-lighten-2">{{org_req.org.website}}</h5>
+                <a class="waves-effect waves-light btn lime darken-2"
+                   href="{% url 'organizations:view' org_req.org.id %}">VIEW
+                    ORGANIZATION</a>
+            </div>
             {% endif %}
-            <h5 class="grey-text text-lighten-2">{{org_req.org.website}}</h5>
-            <a class="waves-effect waves-light btn lime darken-2" href="{% url 'organizations:view' org_req.org.id %}">VIEW
-                ORGANIZATION</a>
         </div>
     </div>
-    {% endif %}
 </div>
 {% endblock %}
