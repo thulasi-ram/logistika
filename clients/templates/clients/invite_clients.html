@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Create Clients{% endblock %}
+{% load materializecss %}
+{% load static %}
+{% block scripts %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper blue lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="{% url 'clients:feed' %}" class="breadcrumb">Browse Clients</a>
+                <a href="{% url 'clients:invite' %}" class="breadcrumb">Invite Clients</a>
+            </div>
+        </div>
+    </nav>
+    <form action="" method="post">
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                {% csrf_token %}
+                {{ form|materializecss }}
+                <div class="input-field center">
+                    <button type="submit" id="create_tender_submit" class="waves-effect waves-light btn blue lighten-1">
+                        INVITE CLIENT
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

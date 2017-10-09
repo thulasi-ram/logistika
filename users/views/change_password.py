@@ -1,11 +1,18 @@
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.template.response import TemplateResponse
+from django.views.generic import TemplateView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
-class ChangePassword(APIView):
+class ChangePassword(LoginRequiredMixin, TemplateView, APIView):
+    template_name = 'users/password_change.html'
+
+    def get(self, request, *args, **kwargs):
+        return TemplateResponse(request, self.template_name)
 
     def post(self, request):
         try:

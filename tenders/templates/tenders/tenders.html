@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Tenders{% endblock %}
+{% load static %}
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper amber lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/tenders" class="breadcrumb">Browse Tenders</a>
+            </div>
+
+        </div>
+    </nav>
+    <div class="row">
+        <div class="input-field col s12 m4">
+            <input type="checkbox" class="filled-in" id="my-tender-filter" checked="checked"/>
+            <label for="my-tender-filter">Show only my tenders</label>
+        </div>
+        <div class="input-field col s12 m4">
+            <input type="checkbox" class="filled-in" id="deleted-tenders-filter" checked="checked"/>
+            <label for="deleted-tenders-filter">Show only active tenders</label>
+        </div>
+    </div>
+    <div class="row">
+        {% for tender in tenders %}
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title amber-text">{{tender.title}}</span>
+                    <p class="grey-text">{{tender.description}}</p>
+                </div>
+                <div class="card-action">
+                    <a href="{{tender.id}}">View details</a>
+                    <a href="/quotes/create/?tender={{tender.id}}">Submit a quote</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Sorry!</span>
+                    <p>No Tenders Available</p>
+                </div>
+                <div class="card-action">
+                    <a href="create">Create a Tender</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

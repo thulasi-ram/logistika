@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    $('ul.tabs').tabs('select_tab', 'account');
+    if ($(".dropdown-button").length){
+    $('#profile_image_display').onclick = function() {
+    $('#profile_image').click();
+       };}
     $("#password_change").submit(function(e) {
 
         //prevent Default functionality

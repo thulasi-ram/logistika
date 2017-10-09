@@ -1,80 +1,51 @@
-{% extends "logistika/landing2.html" %}
+{% extends "base.html" %}
 {% block title %}Quotes{% endblock %}
 {% load static %}
-{% block scripts %}
-<script type="text/javascript" src="{% static 'js/quotes.js' %}"></script>
-{% endblock %}
-{% block tabs %}
-<div class="col s12">
-    <ul class="tabs">
-        <li class="tab col s3"><a href="#list_quotes">Quotes</a></li>
-        {% if request.user.is_authenticated %}
-        <li class="tab col s3"><a href="#create_quotes">Create a Quote</a></li>
-        {% else %}
-        <li class="tab col s3"><a href="#create_quotes" onclick="$('#login_signup_popup').modal('open')">Create a
-            Quote</a></li>
-        {% endif %}
-        <li class="tab col s3"><a href="#compare_quotes">Compare Quotes</a></li>
-    </ul>
-</div>
-<div id="list_quotes" class="col s12">
-    <table>
-        <thead>
-        <tr>
-            <th data-field="id">Name</th>
-            <th data-field="title">Item Name</th>
-            <th data-field="category">Item Price</th>
-        </tr>
-        </thead>
+{% block scripts %}{% endblock %}
 
-        <tbody>
-        </tbody>
-    </table>
-
-    <ul class="pagination right" id="list_quotes_pagination">
-        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-    </ul>
-</div>
-
-<div id="create_quotes" class="col s12">
-    {% if request.user.is_authenticated %}
-    <form id="create_quotes_form" action="{% url 'quotes:create' %}" method="post">
-        {%csrf_token%}
-        <div class="input-field col s12">
-            <input id="quote_title" name="title" type="text" class="validate" required>
-            <label for="quote_title">Title</label>
-        </div>
-        <button type="submit" id="create_quote_submit" class="waves-effect waves-light btn">CREATE QUOTE
-        </button>
-    </form>
-    {% endif %}
-</div>
-
-<div id="compare_quotes" class="col s12">
-
-    <div class="row">
-        {%for i in "xxx" %}
-
-        <div class="col s12 m4">
-            <div class="card-panel teal">
-                <nav>
-                    <div class="nav-wrapper">
-                        <form>
-                            <div class="input-field">
-                                <input id="search" type="search" required>
-                                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                                <i class="material-icons">close</i>
-                            </div>
-                        </form>
-                    </div>
-                </nav>
-                <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-          </span>
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper green lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/quotes" class="breadcrumb">My Quotations</a>
             </div>
         </div>
-        {%endfor%}
+    </nav>
+    <div class="row">
+        <div class="input-field col s12 m4">
+            <input type="checkbox" class="filled-in" id="deleted-tenders-filter" checked="checked"/>
+            <label for="deleted-tenders-filter">Show only active quotes</label>
+        </div>
     </div>
+    <div class="row">
+        {% for quote in quotes %}
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title green-text">{{quote.title}}</span>
+                    {% if not quote.is_active %}
+                    <span class="new badge red" data-badge-caption="DELETED"></span>
+                    {% endif %}
+                    <p class="grey-text">{{quote.description}}</p>
+                </div>
+                <div class="card-action">
+                    <a href="/quotes/{{quote.id}}" class="green-text">View details</a>
+                    <a href="/tenders/{{quote.tender.id}}" class="green-text">View Tender</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Sorry!</span>
+                    <p>No quotes Available</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 </div>
 {% endblock %}

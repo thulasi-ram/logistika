@@ -1,16 +1,10 @@
 from django.conf.urls import url
-from django.contrib.auth.views import password_reset_confirm
-from django.urls import reverse_lazy
 
-from quotes.views import QuotesConsolidated, CreateQuote, ListQuotes
-from users.views.forgot_password import ForgotPassword
-from users.views.login import Login
-from users.views.logout import Logout
-from users.views.signup import SignUp
+from quotes.views import QuotesFeed, CreateQuote, ViewQuote
 
 urlpatterns = [
-    url(r'^$', QuotesConsolidated.as_view(), name='consolidated'),
-    url(r'^listing', ListQuotes.as_view(), name='listing'),
+    url(r'^$', QuotesFeed.as_view(), name='feed'),
     url(r'^create', CreateQuote.as_view(), name='create'),
-    url(r'^compare', CreateQuote.as_view(), name='compare'),
+    url(r'^shared', CreateQuote.as_view(), name='shared'),
+    url(r'^(?P<quote_id>[a-zA-Z0-9-_]+)/$', ViewQuote.as_view(), name="view"),
 ]

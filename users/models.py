@@ -2,23 +2,32 @@ from __future__ import unicode_literals
 
 import hashlib
 import random
+from datetime import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from djutil.models import TimeStampedModel
 
-from users.views.user_manager import CustomUserManager
 from logistika.views.model_crud_permissions import CRUDPermissions
+from organizations.models import Organization
+from users.views.user_manager import CustomUserManager
 
 
-class User(AbstractBaseUser, PermissionsMixin, CRUDPermissions):
+class Roles(TimeStampedModel, CRUDPermissions):
+    ADMIN = 1
+    role_name = models.CharField(max_length=100)
+    role_code = models.CharField(max_length=100)
 
+
+class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel, CRUDPermissions):
     first_name = models.CharField(_('First Name'), max_length=254)
     last_name = models.CharField(_('Last Name'), max_length=254, blank=True, default="")
 
     email = models.EmailField(_('email address'), max_length=254, unique=True)
+    username = models.CharField(_('user name'), max_length=254, unique=True)
     phone_number = models.CharField(_('phone_number'), max_length=20, blank=True, default="")
 
     is_staff = models.BooleanField(_('staff status'), default=False, help_text=_(
@@ -29,6 +38,8 @@ class User(AbstractBaseUser, PermissionsMixin, CRUDPermissions):
 
     is_confirmed = models.BooleanField(_('is confirmed'), default=False)
     confrmation_key = models.CharField(max_length=40)
+    organization = models.ForeignKey(Organization, null=True)
+    role = models.ForeignKey(Roles, null=True)
 
     objects = CustomUserManager()
 
@@ -56,6 +67,40 @@ class User(AbstractBaseUser, PermissionsMixin, CRUDPermissions):
         salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
         self.confrmation_key = hashlib.sha1(salt + email).hexdigest()
 
+    def get_profile_context(self):
+        return {'profile_url': self.get_profile_image_url()}
+
+    def get_profile_initial(self):
+        return {'phone_number': self.phone_number,
+                'first_name': self.first_name,
+                'last_name': self.last_name,
+                'email': self.email,
+                'username': self.username}
+
+    def get_profile_image_url(self):
+        try:
+            return self.profile.photo
+        except:
+            return ''
+
+    def get_view_url(self):
+        # TODO: Try to generate this by reversing profile
+        return "/{user_name}".format(user_name=self.username)
+
+    def get_unread_notif_count(self):
+        # TODO: Instead of 0 in status use Notifications.UNREAD Didn't do it because of circular import
+        self.notifications.filter(status=0).count()
+
     @property
     def is_admin(self):
         return self.is_staff
+
+
+class Profile(TimeStampedModel, CRUDPermissions):
+    user = models.OneToOneField(User, related_name='profile')
+    photo = models.ImageField(upload_to='profile_images/', default='profile_images/account.png')
+    website = models.URLField(default='', blank=True)
+    bio = models.TextField(default='', blank=True)
+    city = models.CharField(max_length=100, default='', blank=True)
+    country = models.CharField(max_length=100, default='', blank=True)
+    last_read_notif_time = models.DateTimeField(default=datetime.now)

@@ -31,10 +31,15 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'material.theme.indigo',
-    'material',
+    'materializecssform',
     'users',
+    'tenders',
     'quotes',
+    'clients',
+    'organizations',
+    'templating',
+    'notifications',
+    'audit',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -127,6 +132,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ('profile_images', os.path.join(os.path.dirname(BASE_DIR), 'profile_images'))]
 
 AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = '/users/login'

@@ -1,0 +1,57 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.side-nav {
+    z-index: 995;
+    margin-top: 64px;
+    padding-top: 5px;
+
+}
+
+#sidenav-overlay {
+    display: none;
+}
+
+.tabs .tab a.active {
+  color: white;
+}
+
+.tabs .tab a:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.tabs .tab a {
+  color: white;
+}
+
+.tabs .indicator {
+    background-color: white;
+}
+
+.slider ul{
+list-style-type: square;
+}
+
+.slider .indicators .indicator-item{
+border-radius:0;
+}
+
+.slider .indicators .indicator-item.active {
+background-color:#1976d2;
+}
+
+.icon-block{
+padding: 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size: inherit;
+}

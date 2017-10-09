@@ -1,4 +1,7 @@
 django==1.10.5
-django-material
-#django-materialize-css
+#django-material
+django-materialize-css
 djangorestframework==3.5.3
+django-materializecss-form
+djutil==0.2
+Pillow

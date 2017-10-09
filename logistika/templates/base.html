@@ -5,163 +5,266 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Logistika | {% block title %}{% endblock %}</title>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% load static %}
     {% block styles %}
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'lib/materialize.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     {% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
 
-<ul id="dropdown1" class="dropdown-content">
-    {% if request.user.is_authenticated %}
-    <li><a href="/quotes">My Quotes</a></li>
-    <li><a href="/users/logout/">Logout</a></li>
-    {% else %}
-    <li><a href="/users/login/">Login</a></li>
-    <li><a href="/users/signup/">Signup</a></li>
-    {%endif%}
-</ul>
-<nav class="teal lighten-2">
-    <div class="nav-wrapper">
-        <a href="/" class="brand-logo">
-            <i class="material-icons large" style="font-size:50px">directions_boat</i>Logistika
-        </a>
-        <ul class="right hide-on-med-and-down">
-            <!--<li>-->
-                <!--&lt;!&ndash;<i class="small material-icons">search</i>&ndash;&gt;-->
-
-                <!--<form id="searchThis" action="/search" style="display: inline;" method="get"><input-->
-                        <!--onfocus="if(this.value==this.defaultValue)this.value='';" value="search site" type="text"-->
-                        <!--id="searchBox" onblur="if(this.value=='')this.value=this.defaultValue;" vinput="" name="q"/>-->
-
-                    <!--&lt;!&ndash;<input id="searchButton" value="Go" type="submit"/>&ndash;&gt;-->
-                <!--</form>-->
-            <!--</li>-->
-            {% if request.user.is_authenticated %}
-            <li><a class="dropdown-button" data-beloworigin="true" data-hover="true" href="#!"
-                   data-activates="dropdown1">{{request.user}}    <i class="material-icons right large">arrow_drop_down</i></a></li>
-            {% else %}
-                <li><a href="#login_signup_popup">Login/Signup</a></li>
-            {% endif %}
-        </ul>
-
-
-    </div>
-</nav>
-{% block content %}{% endblock %}
-
-<script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'lib/moment.js' %}"></script>
-<script type="text/javascript" src="{% static 'lib/materialize.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/base.js' %}"></script>
-<!--<script type="text/javascript" src="{% static 'lib/vue.js' %}"></script>-->
-<!--<script type="text/javascript" src="{% static 'lib/vue-multiselect.min.js' %}"></script>-->
-{% block scripts %}{% endblock %}
-
-<footer class="page-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col l4 s12">
-                <h5 class="white-text">HAVE A QUERY?</h5>
-                <a class="waves-effect waves-light btn" href="#modal1">Contact Us</a>
-                <br><br>
-                <a class="waves-effect waves-light btn" href="#modal2">Request a callback</a>
-            </div>
-            <div class="col l4 s12">
-                <h5 class="white-text">WHY LOGISTIKA</h5>
-                <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">What we do</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Terms and Conditions</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Rating</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Our Promise!</a></li>
+<header>
+    <div class="navbar-fixed">
+        <nav class="blue darken-2">
+            <div class="nav-wrapper">
+                <a href="#" id="hamburger-menu-button" data-activates="hamburger-menu"
+                   class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+                <a href="/" class="brand-logo center">Logistika</a>
+                <ul class="right">
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'users:logout' %}" class="tooltipped" data-position="bottom" data-delay="50"
+                           data-tooltip="Logout"><i class="material-icons">exit_to_app</i></a></li>
+                    {% else %}
+                    <li><a href="#login_signup_popup" class="tooltipped" data-position="bottom" data-delay="50"
+                           data-tooltip="Join Us"><i class="material-icons">group_add</i></a></li>
+                    {% endif %}
                 </ul>
+
             </div>
-            <div class="col l4 s12">
-                <h5 class="white-text">ABOUT US</h5>
-                <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">About Us</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Team</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Careers</a></li>
-                </ul>
+        </nav>
+    </div>
+
+    <ul id="hamburger-menu" class="side-nav">
+        <li class1="hide-on-large-only">
+            <div class="valign-wrapper" style="padding:0">
+                <a class="btn-floating btn-large red" style="padding:0;line-height:56px;">{{request.user.get_short_name|slice:":1"|default:"*"}}</a>
+                <span class="truncate">
+                    Hi, {% if request.user.is_authenticated %}
+                            {{request.user.get_short_name}}
+                        {% else %}
+                            Guest
+                        {% endif %}
+                </span>
+            </div>
+            <ul class="hide">
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'users:logout' %}"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                {% else %}
+                <li><a href="#login_signup_popup"><i class="material-icons">accessibility</i>Login/Signup</a></li>
+                {% endif %}
+            </ul>
+            <div class="divider"></div>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="/">Home<i class="material-icons">home</i></a>
+                </li>
+            </ul>
+        </li>
+
+        {% if request.user.is_authenticated %}
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">Account Settings<i class="material-icons">account_box</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="{% url 'users:profile' %}">My Profile</a></li>
+                            <li><a href="{% url 'users:password_change' %}">Change password</a></li>
+                            <li><a href="{% url 'users:organization' %}">Organization Settings</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        {% endif %}
+
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">Tenders<i class="material-icons">description</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="{% url 'tenders:feed' %}">Browse Tenders</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'tenders:create' %}">Create a Tender</a></li>
+                            <!--<li><a href="{% url 'tenders:shared' %}">Shared Tenders</a></li>-->
+                            {% endif %}
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        {% if request.user.is_authenticated %}
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">Quotations<i class="material-icons">format_quote</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="{% url 'quotes:feed' %}">My Quotations</a></li>
+                            <li><a href="{% url 'tenders:feed' %}">Submit a quote</a></li>
+                            <!--<li><a href="{% url 'quotes:shared' %}">Shared quotes</a></li>-->
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header">Clients<i class="material-icons">people</i></a>
+                    <div class="collapsible-body no-padding">
+                        <ul>
+                            <li><a href="{% url 'clients:feed' %}">My Clients</a></li>
+                            <li><a href="{% url 'clients:invite' %}">Invite a Client</a></li>
+                            <li><a href="{% url 'clients:requests' %}">Client Requests</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="{% url 'notifications:feed' %}">Notifications<i
+                            class="material-icons">notifications</i>{% if request.user.get_unread_notif_count%}<span
+                            class="new red badge">{{request.user.get_unread_notif_count}}</span>{% endif %}</a>
+                </li>
+            </ul>
+        </li>
+        {% endif %}
+
+
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="#">Help<i class="material-icons">help</i></a>
+                </li>
+            </ul>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="#">FAQs<i class="material-icons">question_answer</i></a>
+                </li>
+            </ul>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header" href="#contact_us_modal">Contact us<i
+                            class="material-icons">feedback</i></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+    <script type="text/javascript" src="{% static 'lib/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/moment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/materialize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+    {% block scripts %}{% endblock %}
+
+    <div class="row">
+        <div id="login_signup_popup" class="modal col s12 m4 offset-m4" style="padding:0; padding-bottom:10px;">
+
+            <div class="modal-content" style="padding:0;">
+                {% include "users/login_signup_popup.html" %}
             </div>
         </div>
     </div>
-    <div class="footer-copyright">
-        <div class="container">
-            <div class="center">
-                © 2017 Logistika. All rights reserved.
-                <!--<a class="grey-text text-lighten-4 right" href="#!">More Links</a>-->
-            </div>
-        </div>
-    </div>
-</footer>
 
-
-<!--MODALS-->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <h4>Contacts</h4>
-        <p>Rajashekar : 00000000000</p>
-        <p>Thulasi : 00000000000</p>
-        <h4>Email us:</h4>
-        <div class="row">
-            <form class="col s12">
+    <div class="row">
+        <div id="contact_us_modal" class="modal col s12 m6 offset-m3">
+            <div class="modal-content">
                 <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">subject</i>
-                        <input id="contactus_subject" type="text" class="validate">
-                        <label for="contactus_subject">Subject</label>
+                    <div class="col s12 m6">
+                        <ul class="collection">
+                            <li class="collection-item avatar blue-text text-darken-2">
+                                <img src="{% static 'images/raji.jpg' %}" alt="" class="circle">
+                                <span class="title">Rajashekar</span>
+                                <br>
+                                <p class="valign-wrapper"><i class="material-icons prefix">phone</i>&nbsp;0000000000<br>
+                                </p>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">mode_edit</i>
-                        <textarea id="contactus_message" class="materialize-textarea"></textarea>
-                        <label for="contactus_message">Message</label>
+                    <div class="col s12 m6">
+                        <ul class="collection">
+                            <li class="collection-item avatar blue-text text-darken-2">
+                                <img src="{% static 'images/tula.jpg' %}" alt="" class="circle">
+                                <span class="title">Thulasi</span>
+                                <br>
+                                <p class="valign-wrapper"><i class="material-icons prefix">phone</i>&nbsp;9840561688<br>
+                                </p>
+                            </li>
+                        </ul>
                     </div>
-                    <button type="submit" id="query_submit" class="waves-effect waves-light btn right">Send</button>
-
                 </div>
-            </form>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
-    </div>
-</div>
-<div id="modal2" class="modal">
-    <div class="modal-content">
-        <div class="row">
-            <form class="col s12">
+                <div class="divider"></div>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">email</i>
-                        <input id="callback_email" type="email" class="validate">
-                        <label for="callback_email">Email</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">phone</i>
-                        <input id="callback_phone" type="tel" class="validate">
-                        <label for="callback_phone">Telephone</label>
-                    </div>
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">phone</i>
+                                <input id="callback_phone" type="tel" class="validate">
+                                <label for="callback_phone">Telephone</label>
+                            </div>
+                            <div class="center col s12">
+                                <button type="submit" id="callback_submit"
+                                        class="waves-effect waves-light btn blue darken-2">REQUEST CALLBACK
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <h6 class="blue-text text-darken-2 center">(or)</h6>
+
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="contactus_subject" type="email" class="validate"
+                                       value="{{request.user.email}}">
+                                <label for="contactus_subject">Your Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="contactus_message" class="materialize-textarea"></textarea>
+                                <label for="contactus_message">Message</label>
+                            </div>
+                            <div class="center input-field col s12">
+                                <button type="submit" id="query_submit"
+                                        class="waves-effect waves-light btn blue darken-2">
+                                    EMAIL US
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="submit" id="submit_button"
-                class="center-align modal-action modal-close waves-effect waves-green btn-flat"><b>Request Callback</b>
-        </button>
-        <!--<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>-->
-    </div>
-</div>
- <div id="login_signup_popup" class="modal">
-    <div class="modal-content">
-        {% include "users/login_signup_popup.html" %}
-    </div>
-    <!--<div class="modal-footer">-->
-      <!--<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>-->
-    <!--</div>-->
-  </div>
+
+</main>
+
+
+{% block footer %}
+<footer></footer>
+{% endblock %}
+
+
 </body>
 </html>

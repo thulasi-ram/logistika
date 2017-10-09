@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Clients{% endblock %}
+{% load static %}
+{% block scripts %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper blue lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="{% url 'clients:feed' %}" class="breadcrumb">Browse Clients</a>
+                <a href="{% url 'clients:requests' %}" class="breadcrumb">Client Requests</a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="input-field col s3">
+            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked"/>
+            <label for="filled-in-box">Show only unaccepted</label>
+        </div>
+        <div class="input-field col s4 right">
+            <a class="waves-effect waves-light btn-flat right teal-text"><i class="material-icons left">clear_all</i>Reject all</a>
+        </div>
+    </div>
+    {% for cli_req in client_requests %}
+    <div class="card-panel white">
+        <form action="" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <input type="text" value="{{cli_req.id}}" name="cli_req_id" hidden>
+            <span class="teal-text text-darken-2"><a href="{% url 'profile' request.user.username %}">{{cli_req.invited_by.get_full_name}}</a> has invited you.</span>
+            {% if cli_req.is_pending %}
+            <input type="submit" value="REJECT" name="reject" class="waves-effect waves-light btn red right">
+            <input type="submit" value="ACCEPT" name="accept" class="waves-effect waves-light btn teal right">
+            {% else %}
+            <span class="grey-text text-darken-2 right">Has been {{ cli_req.status|lower }} by you.</span>
+            {% endif %}
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

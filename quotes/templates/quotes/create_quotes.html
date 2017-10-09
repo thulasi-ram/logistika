@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Tenders{% endblock %}
+{% load materializecss %}
+{% load static %}
+{% block scripts %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper green lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/quotes" class="breadcrumb">My Quotations</a>
+                <a href="/quotes/create" class="breadcrumb">Create Quotation</a>
+            </div>
+        </div>
+    </nav>
+    <form action="" method="post">
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                {% csrf_token %}
+                {{ form|materializecss }}
+                <input type="hidden" value="{{tender}}" name="tender">
+                <div class="input-field center">
+                    <button type="submit" id="create_tender_submit"
+                            class="waves-effect waves-light btn green lighten-2">CREATE QUOTES
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

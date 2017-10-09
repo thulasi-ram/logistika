@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Tenders{% endblock %}
+{% load materializecss %}
+{% load static %}
+{% block scripts %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper amber lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/tenders" class="breadcrumb">Browse Tenders</a>
+                <a href="/tenders/{{tender.id}}" class="breadcrumb">View Details</a>
+            </div>
+        </div>
+    </nav>
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <h5 class="header left amber-text">{{tender.title}}</h5>
+                {% if not tender.is_active %}
+                <span class="new badge red" data-badge-caption="DELETED"></span>
+                {% endif %}
+            </div>
+            <div class="row">
+                <p class="left grey-text">{{tender.description}}</p>
+            </div>
+            <div class="divider" style="margin:20px;"></div>
+            <div class="row">
+                <form action="" method="post" class="left">
+                    {% csrf_token %}
+                    <input type="hidden" value="true" name="delete">
+                    <button type="submit" id="delete_tender_submit"
+                            class="waves-effect waves-light btn red lighten-2 {% if not tender.is_active %}disabled{% endif %}">
+                        DELETE
+                    </button>
+                </form>
+
+                <a class="waves-effect waves-light btn left green lighten-2" href="/quotes/create/?tender={{tender.id}}"
+                   style="margin:0px 15px;">Submit Quote</a>
+
+            </div>
+
+        </div>
+        <div class="card-tabs">
+            <ul class="tabs amber lighten-2">
+                <li class="tab"><a href="#shipment_details">Shipment Details</a></li>
+                <li class="tab"><a class="active" href="#financial_details">Financial Details</a></li>
+                <li class="tab"><a href="#legal_details">Legal Details</a></li>
+                <li class="tab"><a href="#quotation_details">Quotations Details</a></li>
+            </ul>
+        </div>
+        <div class="card-content grey lighten-4">
+            <div id="shipment_details">Shipment</div>
+            <div id="financial_details">Financial</div>
+            <div id="legal_details">Legal</div>
+            <div id="quotation_details">
+                <div class="row grey">
+                    <div class="col s12">
+                        <span class="white-text center">Only tender owner can view this</span>
+                    </div>
+                </div>
+                {% if request.user.id == tender.created_by.id %}
+                <div class="row">
+                    <span class="new badge green lighten-1" data-badge-caption="QUOTES">{{quotes|length}}</span>
+                </div>
+
+                <table class="highlight responsive-table">
+                    <thead>
+                    <tr>
+                        <th data-field="id">Title</th>
+                        <th data-field="name">From</th>
+                        <th data-field="price">Price</th>
+                        <th data-field="price">Description</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for quote in quotes %}
+                    <tr>
+                        <td><a class="green-text tooltipped" data-position="bottom" data-tooltip="View Quote" href="/quotes/{{quote.id}}">{{quote.title}}</a></td>
+                        <td>{{quote.user.organization|default:"Organization not set yet."}}</td>
+                        <td>{{quote.amount}}</td>
+                        <td>{{quote.description}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

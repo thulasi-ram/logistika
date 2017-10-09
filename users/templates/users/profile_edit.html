@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% load static %}
+{% load materializecss %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper teal lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="{% url 'users:profile' %}" class="breadcrumb">My Profile</a>
+            </div>
+        </div>
+    </nav>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s6 offset-s3 center" id="profile_image_display">
+                <img src="{% static profile_url %}" alt="" class="circle responsive-img"
+                     style="width:150px;height:150px;">
+                <input type="file" id="profile_image" name='profile_image' style="visibility:hidden;">
+            </div>
+        </div>
+        <div class="center red-text"> {{ form.non_field_errors }}</div>
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="input-field">
+                    <i class="material-icons prefix">verified_user</i>
+                    {{ form.username }}
+                    {{ form.username.label_tag }}
+                    <div class="center red-text"> {{ form.username.errors }}</div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">account_circle</i>
+                        {{ form.first_name }}
+                        {{ form.first_name.label_tag }}
+                        <div class="center red-text"> {{ form.first_name.errors }}</div>
+                    </div>
+                    <div class="input-field col s6">
+                        {{ form.last_name }}
+                        {{ form.last_name.label_tag }}
+                        <div class="center red-text"> {{ form.last_name.errors }}</div>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons prefix">phone</i>
+                    {{ form.phone_number }}
+                    {{ form.phone_number.label_tag }}
+                    <div class="center red-text"> {{ form.phone_number.errors }}</div>
+                </div>
+                <div class="input-field">
+                    <i class="material-icons prefix">email</i>
+                    {{ form.email }}
+                    {{ form.email.label_tag }}
+                    <div class="center red-text"> {{ form.email.errors }}</div>
+                </div>
+                <div class="input-field center">
+                    <button type="submit" value="Submit" class="waves-effect waves-light btn teal">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

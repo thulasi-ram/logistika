@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% load static %}
+{% load materializecss %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper teal lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="{% url 'profile' user.username %}" class="breadcrumb">{{user.username|capfirst}} Profile</a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="input-field col s12 m6 offset-m3 center">
+            <div class="input-field" id="profile_image_display">
+                <img src="{% static user.get_profile_image_url %}" alt="" class="circle responsive-img"
+                     style="width:150px;height:150px;">
+            </div>
+            <div class="input-field">
+                <h4 class="grey-text">{{user.get_full_name}}</h4>
+            </div>
+            <div class="input-field grey-text">
+                <i class="material-icons">phone</i>
+                <span>{{user.phone_number|default:"No phone number"}}</span>
+            </div>
+            <div class="input-field grey-text">
+                <i class="material-icons">email</i>
+                <span>{{user.email}}</span>
+            </div>
+            <div class="input-field center">
+                <a class="waves-effect waves-light btn red lighten-2 {% if not user.organization %}disabled{% endif%}"
+                   href="{% if user.organization %}{% url 'organizations:view' user.organization.id %}{% endif%}">
+                    {% if user.organization %}
+                    VIEW ORGANIZATION
+                    {% else %}
+                    NO ORGANIZATION SET
+                    {% endif%}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

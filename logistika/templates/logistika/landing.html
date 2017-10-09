@@ -5,82 +5,132 @@
 <script type="text/javascript" src="{% static 'js/landing.js' %}"></script>
 {% endblock %}
 {% block content %}
+<div class="parallax-container">
+    <div class="slider">
+        <ul class="slides">
+            <li>
+                <img src="{% static 'images/slider_1.jpg'%}">
+                <div class="caption center-align" style="top:25%;">
+                    <h3>Welcome to Logistika!</h3>
+                    <h5 class="light grey-text text-lighten-3">Get things done with ease.</h5>
+                    {% if request.user.is_authenticated %}
+                    <a class="waves-effect waves-light btn white blue-text text-darken-2" href="#">Get Started</a>
+                    {% else %}
+                    <a class="waves-effect waves-light btn white blue-text text-darken-2" href="#login_signup_popup">Login/Signup</a>
+                    {% endif %}
+                </div>
+            </li>
+            <li>
+                <img src="{% static 'images/slider_2.jpg'%}">
+                <div class="caption left-align" style="top:25%;">
+                    <h3>Browse all the tenders</h3>
+                    <h5 class="light grey-text text-lighten-3">Start with popular clients by demand</h5>
+                    <a class="waves-effect waves-light btn white blue-text text-darken-2" href="/tenders">Browse
+                        tenders</a>
+                </div>
+            </li>
+            <li>
+                <img src="{% static 'images/slider_3.jpg'%}">
+                <div class="caption right-align" style="top:25%;">
+                    <h3>Manage your clients!</h3>
+                    <h5 class="light grey-text text-lighten-3">All with built in support for lead management.</h5>
+                    <a class="waves-effect waves-light btn white blue-text text-darken-2" href="/clients">Find
+                        clients</a>
+                </div>
+            </li>
 
-<!--SLIDER START -->
-<div class="slider">
-    <ul class="slides">
-        <li>
-            <img src="{% static 'images/aircargo.png' %}">
-            <div class="caption center-align">
-                <h3>Welcome to logistika!</h3>
-                <h5 class="light grey-text text-lighten-3">Get things done.</h5>
-            </div>
-        </li>
-        <li>
-            <img src="{% static 'images/road.png' %}">
-            <div class="caption left-align">
-                <h3>One stop for your logistical hurdles</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-            </div>
-        </li>
-        <li>
-            <img src="{% static 'images/ship.png' %}">
-            <div class="caption right-align">
-                <h3>Right Aligned Caption</h3>
-                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-            </div>
-        </li>
-    </ul>
+        </ul>
+    </div>
+    <div class="parallax"></div>
 </div>
-<!--SLIDER END-->
+<div class="container section white">
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="icon-block">
+                <h2 class="center blue-text"><i class="material-icons">flash_on</i></h2>
+                <h5 class="center blue-text">Speeds up development</h5>
+                <p class="light center">We do most of the heavy lifting for you to provide a default interface that incorporate
+                    your actions seamlessly. Additionally, we provide a smoother experience for you.</p>
+            </div>
+        </div>
 
-<div class="row">
-    <div class="col s12 offset-m1 m3">
-        <div class="card hoverable small">
-            <div class="card-image">
-                <img src="{% static 'images/browse_quotes.png' %}" >
-                <!--style="width:250px;left:75px;top:20px;"-->
-                <span class="card-title"></span>
+        <div class="col s12 m4">
+            <div class="icon-block">
+                <h2 class="center blue-text"><i class="material-icons">group</i></h2>
+                <h5 class="center blue-text">User Experience Focused</h5>
+                <p class="light center">We provide many features so that you can concentrate on things that matter.
+                    Additionally, a single underlying responsive system across all platforms allow for a more unified
+                    user experience.</p>
             </div>
-            <div class="card-content">
-                <p></p>
-            </div>
-            <div class="card-action">
-                <a href="{% url 'quotes:consolidated' %}">BROWSE QUOTES</a>
+        </div>
+
+        <div class="col s12 m4">
+            <div class="icon-block">
+                <h2 class="center blue-text"><i class="material-icons">settings</i></h2>
+                <h5 class="center blue-text">Easy to work with</h5>
+
+                <p class="light center">We have provided detailed documentation as well as a guide to help new users get
+                    started. We are also always open to feedback and can answer any questions a user may have about
+                    Logistika.</p>
             </div>
         </div>
     </div>
-    <div class="col s12 m3">
-        <div class="card hoverable small">
-            <div class="card-image">
-                <img src="{% static 'images/create_quotes.png' %}">
-                <span class="card-title"></span>
-                <!--<a class="btn-floating right btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>-->
 
-            </div>
-            <div class="card-content">
-                <p></p>
-            </div>
-            <div class="card-action">
-                <a href="{% url 'quotes:consolidated' %}#create">CREATE QUOTE</a>
-            </div>
-        </div>
-    </div>
-    <div class="col s12 m3">
-        <div class="card hoverable small">
-            <div class="card-image">
-                <img src="{% static 'images/compare_quotes.png' %}">
-                <span class="card-title"></span>
-
-            </div>
-            <div class="card-content">
-                <p></p>
-            </div>
-            <div class="card-action">
-                <a href="{% url 'quotes:consolidated' %}#compare">COMPARE QUOTES</a>
-            </div>
-        </div>
-    </div>
 </div>
-
+<div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot valign" style="width:100%;">
+        <div class="container">
+            <div class="row center">
+                <h5 class="col s12 white-text light">A modern way to manage your logistics.</h5>
+            </div>
+        </div>
+    </div>
+    <div class="parallax"><img src="{% static 'images/parallax_1.jpg' %}" style="display: block; transform: translate3d(-50%, 213px, 0px);"></div>
+</div>
+<div class="container section white flow-text">{% lorem 3 p%}</div>
+<div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot" style="width:100%;">
+        <div class="container">
+            <div class="row center">
+                <h5 class="header col s12 white-text light">An easier way to meet your shipping requirements.</h5>
+            </div>
+        </div>
+    </div>
+    <div class="parallax"><img src="{% static 'images/parallax_2.jpg' %}"></div>
+</div>
+<div class="container section white flow-text">{% lorem 3 p%}</div>
+{% endblock %}
+{% block footer %}
+<footer class="page-footer blue darken-2">
+    <div class="container">
+        <div class="row">
+            <div class="col l3 s12">
+            </div>
+            <div class="col l4 s12">
+                <h5 class="white-text">WHY LOGISTIKA</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">What we do</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Terms and Conditions</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Rating</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Our Promise!</a></li>
+                </ul>
+            </div>
+            <div class="col l4 s12">
+                <h5 class="white-text">ABOUT US</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">About Us</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Team</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="center">
+                © 2017 Logistika. All rights reserved.
+            </div>
+        </div>
+    </div>
+</footer>
 {% endblock %}

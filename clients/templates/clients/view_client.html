@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Clients{% endblock %}
+{% load materializecss %}
+{% load static %}
+{% block scripts %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav>
+        <div class="nav-wrapper blue lighten-2">
+            <div class="col s12" style="padding-left:10px">
+                <a href="/clients" class="breadcrumb">Browse Clients</a>
+                <a href="/clients/{{client.id}}" class="breadcrumb">View Clients</a>
+            </div>
+        </div>
+    </nav>
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <h5 class="header left blue-text">{{client.name}}</h5>
+                {% if not client.is_active %}
+                <span class="new badge red" data-badge-caption="INACTIVE"></span>
+                {% endif %}
+            </div>
+            <div class="row">
+                <p class="left grey-text">{{client.website}}</p>
+            </div>
+            <div class="divider" style="margin:20px;"></div>
+            <div class="row">
+                <form action="" method="post" class="left">
+                    {% csrf_token %}
+                    <input type="hidden" value="true" name="delete">
+                    <button type="submit" id="delete_client_submit"
+                            class="waves-effect waves-light btn red lighten-2 {% if not client.is_active %}disabled{% endif %}">
+                        DELETE
+                    </button>
+                </form>
+            </div>
+
+        </div>
+        <div class="card-tabs">
+            <ul class="tabs blue lighten-2">
+                <li class="tab"><a href="#tender_details">Tender Details</a></li>
+                <li class="tab"><a href="#quotation_details">Quotations Details</a></li>
+                <li class="tab"><a href="#contact_details">Contact Details</a></li>
+                <li class="tab"><a href="#biliing_details">Billing Details</a></li>
+                <li class="tab"><a href="#user_details">User Details</a></li>
+            </ul>
+        </div>
+        <div class="card-content grey lighten-4">
+            <div id="tender_details">Tenders</div>
+            <div id="contact_details">Contact</div>
+            <div id="biliing_details">Billing</div>
+            <div id="user_details">User</div>
+            <div id="quotation_details">
+                {% if request.user.id == tender.created_by.id %}
+                <div class="row">
+                    <span class="new badge green lighten-1" data-badge-caption="QUOTES">{{quotes|length}}</span>
+                </div>
+                <ul class="collapsible" data-collapsible="accordion">
+                    {% for quote in quotes %}
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons green-text">format_quote</i>{{quote.title}}
+                        </div>
+                        <div class="collapsible-body container">
+                            <div class="row"><span>{{quote.description}}</span></div>
+                            <div class="row">
+                                <a class="waves-effect waves-light btn right green lighten-2"
+                                   href="/quotes/{{quote.id}}" style="margin:0px 15px;">View Quote</a></div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
